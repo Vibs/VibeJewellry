@@ -22,9 +22,19 @@ fetch("/api/jewelry")
 
 
 function createJewelryView(jewelry){
+    console.log(jewelry);
 
-    
+    const jewelryDiv = document.createElement('div');
 
+    jewelryDiv.innerHTML = `
+    <a class="jewelry-link" href="/jewelry/${escapeHTML(jewelry.id.toString(10))}">
+        <img class="jewelry-image" alt="${escapeHTML(jewelry.name)}" src="/assets/images/jewelry/${escapeHTML(jewelry.image_path)}">
+
+        <p class="name">${escapeHTML(jewelry.name)}<p>
+        <p class="price"> ${escapeHTML(jewelry.price.toString(10))} dkk</p>
+    </a>`;
+
+    jewelryWrapper.appendChild(jewelryDiv);
 
 }
 

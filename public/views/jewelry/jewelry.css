@@ -1,0 +1,41 @@
+.jewelry-image {
+    width: 225px;
+    height: 225px;
+}
+
+
+.name {
+    font-weight: bold;
+}
+
+.price {
+    font-style: italic;
+}
+
+
+
+
+
+a.jewelry-link {
+    color: black;
+}
+
+/* unvisited link */
+a.jewelry-link:link {
+    text-decoration: none;
+}
+/* visited link */
+a.jewelry-link:visited {
+    color: black;
+    /*color: #5b84b1;*/
+}
+/* mouse over link */
+a.jewelry-link:hover {
+    color: black;
+
+    /*color: #5b84b1;*/
+}
+/* selected link */
+a.jewelry-link:active {
+    text-decoration: none;
+}
