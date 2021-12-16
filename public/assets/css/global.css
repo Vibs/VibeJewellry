@@ -1,0 +1,102 @@
+body {
+    font-family: 'Nunito', sans-serif;
+    font-size: 30px;
+    margin: 0;
+}
+
+main{
+    min-height: calc(100vh - 263px);
+    text-align: center;
+}
+
+.align-vert-hor {
+    display: flex;
+    justify-content: center; /*horizontally*/
+    align-items: center; /*vertically*/
+}
+
+
+/*----------FORMS---------*/
+#text {
+    height: 200 px;
+    width: 300px;
+}
+
+#form {
+    margin-top: 30px;
+
+    display: grid !important;
+    align-items: center;
+    justify-content: center;
+}
+
+label {
+    display: grid !important;
+    align-items: center;
+    justify-content: center;
+}
+
+input {
+    height: 30px;
+    font-size: 20px;
+}
+
+textarea {
+    font-size: 20px;
+}
+
+#submit-button{
+    height: 40px;
+    font-size: 20px;
+    background-color: rgb(180, 237, 180);
+    margin: 5px 15px 5px 15px;
+
+}
+
+.submit-button{
+    height: 40px;
+    font-size: 20px;
+    background-color: rgb(198, 235, 198);
+    padding: 5px 05px 0;
+}
+
+.delete-button{
+    height: 40px;
+    font-size: 20px;
+    background-color: rgb(238, 198, 189);
+    margin: 5px 15px 5px 15px;
+}
+
+
+
+
+embed {
+    position: relative;
+    top: 50px;
+    margin-bottom: 50px;
+    width: 50%;
+    height: 1000px;
+}
+
+
+#image {
+    position: relative;
+    top: 50px;
+    width: 20%;
+    height: 20%;
+    /* width: 25px; */
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+
+#frontpage-text {
+    top: 50px;
+    margin: auto;
+    position: relative;
+    display: flex;
+    width: 40%;
+    align-items: center;
+    justify-content: center;
+}
