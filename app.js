@@ -19,19 +19,17 @@ import jewelryRouter from "./routers/jewelry.js";
 app.use(jewelryRouter.router);
 
 
-
-
 // Forbereder siderne
 import { createPage } from "./render.js";
 
 const frontpage = createPage("frontpage/frontpage.html", {
-    title: "VibeJewelry"
+    title: "VibeJewelry",
+    styling: "frontpage/frontpage.css"
 });
 
 const contactPage = createPage("contact/contact.html", {
     title: "Kontakt",
-    script: "contact/contact.js",
-    styling: "contact/contact.css",
+    script: "contact/contact.js"
 });
 
 const jewelryPage = createPage("jewelry/jewelry.html", {

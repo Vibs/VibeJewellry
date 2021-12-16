@@ -9,7 +9,7 @@
 #cart-link {
     position: absolute;
     right: 5%;
-    max-width: 100px;
+    max-width: 50px;
 }
 
 #cart-icon {
@@ -21,7 +21,6 @@
 /*150 px*/
 nav {
     height: 150px;
-    font-weight: bold;
     margin: auto;
     width: 50%;
     display: flex;

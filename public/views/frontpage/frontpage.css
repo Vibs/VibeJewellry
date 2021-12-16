@@ -1,0 +1,22 @@
+#gold-image {
+    width: 100%;
+    margin-bottom: 60px;
+}
+
+
+
+.picture-and-text {
+    position: relative;
+    text-align: center;
+}
+
+p {
+    font-size: 130%;
+}
+
+.centered {
+    position: absolute;
+    top: 68%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }

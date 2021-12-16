@@ -18,5 +18,14 @@ import { createConnection } from "./connectSqlite.js";
     await connection.exec(jewelryTable);
 
     connection.run("INSERT into jewelry ('name', 'price', 'image_path') VALUES (?, ?, ?)", 
-    "Vibes pæneste øreringe", 250.0, "ørering1.jpg");
+    "Vibes pæneste øreringe", 249.0, "ørering1.jpg");
+
+    connection.run("INSERT into jewelry ('name', 'price', 'image_path') VALUES (?, ?, ?)", 
+    "Creole med farver", 149.0, "ørering2.jpg");
+
+    connection.run("INSERT into jewelry ('name', 'price', 'image_path') VALUES (?, ?, ?)", 
+    "Muslingesæt 4 pcs.", 250.0, "ørering3.jpg");
+
+    connection.run("INSERT into jewelry ('name', 'price', 'image_path') VALUES (?, ?, ?)", 
+    "Creole med struktur", 299.0, "ørering4.jpg");
 })() 

@@ -8,12 +8,31 @@ main{
     min-height: calc(100vh - 460px);
     text-align: center;
     font-size: 50%;
+    box-sizing: content-box; /*Udelukkende for at override bootstraps styling her*/
 }
 
 .align-vert-hor {
     display: flex;
     justify-content: center; /*horizontally*/
     align-items: center; /*vertically*/
+}
+
+.dark-blue {
+    color: #5b84b1;
+}
+
+/*
+h1, h2, h3 {
+    color: #5b84b1;
+}*/
+
+.light-blue {
+    color: #d9e9fc;
+}
+
+.page-text {
+    width: 50%;
+    margin: auto;
 }
 
 

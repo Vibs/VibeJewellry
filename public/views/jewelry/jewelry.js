@@ -25,6 +25,7 @@ function createJewelryView(jewelry){
     console.log(jewelry);
 
     const jewelryDiv = document.createElement('div');
+    jewelryDiv.classList.add("col-xs-6", "col-sm-4", "jewelry-col");
 
     jewelryDiv.innerHTML = `
     <a class="jewelry-link" href="/jewelry/${escapeHTML(jewelry.id.toString(10))}">
