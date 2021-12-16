@@ -15,6 +15,10 @@ app.use(express.urlencoded({extended: true})); // supports data from forms - nee
 import contactRouter from "./routers/contact.js";
 app.use(contactRouter.router);
 
+import jewelryRouter from "./routers/jewelry.js";
+app.use(jewelryRouter.router);
+
+
 
 
 // Forbereder siderne

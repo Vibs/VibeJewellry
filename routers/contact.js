@@ -24,14 +24,15 @@ router.post("/api/contact", (req, res) => {
         from: process.env.EMAIL_NODEMAILER, // sender address
         to: [req.body.email], // sender mail til brugers indtastede email
         subject: `Tak for din besked! `, // Subject line
-        text: `Hej ${req.body.name}, vi har modtaget din besked, og svarer snarest muligt.` // plain text body
+        html: `Hej ${req.body.name}, <br>vi har modtaget din besked, og svarer snarest muligt.<br>` +
+        `------------------------<br> Besked modtaget: <br>${req.body.message}` // plain text body
     }
 
     let mailToVibeJewelry = {
         from: process.env.EMAIL_NODEMAILER, // sender address
         to: [process.env.EMAIL], // sender mail til mig selv
         subject: `Kontaktformular fra ${req.body.email}`, // Subject line
-        text: ` --------------modtaget fra ${req.body.email} ------------------- ${req.body.message}` // plain text body
+        html: `Modtaget fra ${req.body.email} <br> ${req.body.message}`
     }
 
     const customerMailStatus = true;

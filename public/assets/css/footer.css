@@ -22,9 +22,13 @@ span {
 }
 
 .footer-el {
-    color: black;
+    color: #5b84b1;
     text-align: center;
     width: 33%;
+}
+
+a.footer-el {
+    font-weight: bold;
 }
 
 
@@ -34,11 +38,11 @@ a.footer-el:link {
 }
 /* visited link */
 a.footer-el:visited {
-    color: black;
+    color: #5b84b1;
 }
 /* mouse over link */
 a.footer-el:hover {
-    color: black;
+    color: #5b84b1;
 }
 /* selected link */
 a.footer-el:active {
