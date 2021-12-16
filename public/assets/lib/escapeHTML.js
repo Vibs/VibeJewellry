@@ -1,3 +1,4 @@
+
 function escapeHTML(string) {
     if(string){
     string = string.replace("&", "&amp;");
@@ -8,3 +9,4 @@ function escapeHTML(string) {
     }
     return string;
 }
+

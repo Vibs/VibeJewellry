@@ -15,12 +15,24 @@ function createPage(path, options) {
 
     return (nav + mainPage + footer)
         .replace("%%DOCUMENT_TITLE%%", options?.title || "Nodefolio")
-        .replace("%%SCRIPT%%", options?.script ? `<script src="/views/${options.script}"></script>` : "")
-        .replace("%%STYLE%%", options?.styling ? `<link rel="stylesheet" href="/views/${options.styling}"></script>` : "")
+        .replace("%%SCRIPT%%", options?.script ? options.script.map(createScript) : "")
+        .replace("%%STYLING%%", options?.styling ? options.styling.map(createStylingLink) : "")//`<link rel="stylesheet" href="/views/${options.styling}"></script>` : "")
         .replace("%%ACTIVE_NAV_LINK%%", options?.activeNavLink);
 }
 
 
+function createStylingLink(styling){
+    console.log(styling);
+
+
+    console.log(`<link rel="stylesheet" href="${styling.href}">`);
+    return `<link rel="stylesheet" href="${styling.href}">`;
+}
+
+function createScript(script){
+    console.log(script);
+    return `<script src="${script.src}"></script>`;
+}
 
 export {
     createPage

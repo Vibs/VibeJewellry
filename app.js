@@ -24,20 +24,29 @@ import { createPage } from "./render.js";
 
 const frontpage = createPage("frontpage/frontpage.html", {
     title: "VibeJewelry",
-    styling: "frontpage/frontpage.css"
+    styling: [{ href: "/views/frontpage/frontpage.css" }]
 });
 
 const contactPage = createPage("contact/contact.html", {
     title: "Kontakt",
-    script: "contact/contact.js"
+    script: [{ src: "/views/contact/contact.js" }]
 });
 
-const jewelryPage = createPage("jewelry/jewelry.html", {
+const allJewelryPage = createPage("jewelry/jewelry.html", {
     title: "Smykker",
-    script: "jewelry/jewelry.js",
-    styling: "jewelry/jewelry.css",
+    script: [{ src: "/views/jewelry/jewelry.js" }],
+    styling: [{ href: "/assets/css/jewelry.css"}]
 });
 
+
+
+const singleJewelryPage = createPage("jewelry/jewelry.html", {
+    title: "Smykker",
+    script: [{ src: "/views/jewelry/jewelry.js"}],
+    styling: [
+        { href: "/assets/css/jewelry.css" }, 
+        { href: "/views/product/product.css"}]
+});
 
 // endpoints
 app.get("/", (req, res) => {
@@ -49,7 +58,11 @@ app.get("/contact", (req, res) => {
 })
 
 app.get("/jewelry", (req, res) => {
-    res.send(jewelryPage);
+    res.send(allJewelryPage);
+})
+
+app.get("/jewelry/:id", (req, res) => {
+    res.send(singleJewelryPage);
 })
 
 

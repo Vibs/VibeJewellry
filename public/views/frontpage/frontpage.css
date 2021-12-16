@@ -1,5 +1,6 @@
 #gold-image {
     width: 100%;
+    margin-top: 50px;
     margin-bottom: 60px;
 }
 
@@ -11,7 +12,11 @@
 }
 
 p {
-    font-size: 130%;
+    font-size: calc(2 * 1vw);
+}
+
+h1 {
+    font-size: calc(3 * 1vw);
 }
 
 .centered {
@@ -19,4 +24,15 @@ p {
     top: 68%;
     left: 50%;
     transform: translate(-50%, -50%);
+    width: 500px;
   }
+
+main {
+    min-height: calc(100vh - 460px);
+    text-align: center;
+    font-size: 50%;
+    box-sizing: content-box;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+}
