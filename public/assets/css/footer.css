@@ -1,8 +1,10 @@
 
+/*80px høj*/
 footer {
-    font-size: 30px;
+    height: 50px;
+    font-size: 70%;
     padding: 30px 0px 30px 0px;
-    margin-top: 30px;
+    margin-top: 100px;
 
     background-color: #d9e9fc;
 
@@ -10,7 +12,7 @@ footer {
 
 #footer-logo {
     display: block;
-    width: 80%;
+    width: 60%;
     margin: auto;
 }
 
@@ -19,36 +21,25 @@ span {
 }
 
 .footer-el {
+    color: black;
     text-align: center;
     width: 33%;
 }
 
-.footer-link {
-    /* height: 100px; */
-    font-size: 100%;
-    color: #5b84b1;
-    /* padding: 20px 80px 20px 80px; */
-    /* display: flex; */
-    align-items: center;
-    text-align: center;
-    font-weight: bold;
-}
-
-
 
 /* unvisited link */
-a.footer-link:link {
+a.footer-el:link {
     text-decoration: none;
 }
 /* visited link */
-a.footer-link:visited {
-    color: #5b84b1;
+a.footer-el:visited {
+    color: black;
 }
 /* mouse over link */
-a.footer-link:hover {
-    color: #5b84b1;
+a.footer-el:hover {
+    color: black;
 }
 /* selected link */
-a.footer-link:active {
+a.footer-el:active {
     text-decoration: underline;
 }

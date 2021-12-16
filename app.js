@@ -7,10 +7,25 @@ app.use(express.urlencoded({extended: true})); // supports data from forms - nee
 
 import { createPage } from "./render.js";
 
+// Forbereder siderne
+const frontpage = createPage("frontpage/frontpage.html", {
+    title: "VibeJewelry"
+});
+
+const contactPage = createPage("contact/contact.html", {
+    title: "Kontakt",
+    script: "contact/contact.js"
+});
 
 
+// endpoints
 app.get("/", (req, res) => {
-    res.send(createPage("frontpage/frontpage.html", "noget"));
+    res.send(frontpage);
+})
+
+
+app.get("/contact", (req, res) => {
+    res.send(contactPage);
 })
 
 

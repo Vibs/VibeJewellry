@@ -5,8 +5,9 @@ body {
 }
 
 main{
-    min-height: calc(100vh - 263px);
+    min-height: calc(100vh - 460px);
     text-align: center;
+    font-size: 50%;
 }
 
 .align-vert-hor {
@@ -26,7 +27,7 @@ main{
     margin-top: 30px;
 
     display: grid !important;
-    align-items: center;
+    /*align-items: center;*/
     justify-content: center;
 }
 
@@ -34,31 +35,16 @@ label {
     display: grid !important;
     align-items: center;
     justify-content: center;
+    margin: 5px 0 5px 0;
 }
 
+/*
 input {
     height: 30px;
     font-size: 20px;
 }
+*/
 
-textarea {
-    font-size: 20px;
-}
-
-#submit-button{
-    height: 40px;
-    font-size: 20px;
-    background-color: rgb(180, 237, 180);
-    margin: 5px 15px 5px 15px;
-
-}
-
-.submit-button{
-    height: 40px;
-    font-size: 20px;
-    background-color: rgb(198, 235, 198);
-    padding: 5px 05px 0;
-}
 
 .delete-button{
     height: 40px;
@@ -66,6 +52,63 @@ textarea {
     background-color: rgb(238, 198, 189);
     margin: 5px 15px 5px 15px;
 }
+
+input {
+    width: 50%;
+    margin: auto;
+    font-family: 'Nunito', sans-serif;
+}
+
+textarea {
+    margin: 10px;
+    font-family: 'Nunito', sans-serif;
+
+}
+
+/*  https://codepen.io/Tixie/pen/cAxIv */
+button[type=submit]{
+    margin-left: 0.5em;
+
+    height: 2em;
+    width: 40%;
+    font-size: 1.17em;
+    padding-left: 1.7rem;
+   
+    font-weight: bold;
+    font-family: 'Nunito', sans-serif !important;
+    text-transform: uppercase;
+    color: #696666;
+    background: url(https://i.imgur.com/Th606mh.png) no-repeat scroll 0.75em -0.3em transparent;
+    background-size: 25px 80px;
+    
+    border-radius: 2em;
+    border: 0.15em solid #85b74d;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+  }
+  button[type="submit"]:hover {
+      color: #fff;
+      background-color: #85b74d;
+      border-color: #85b74d;
+      background-position: 0.75em bottom;
+      -webkit-transition: all 0.3s ease;
+      -ms-transition: all 0.3s ease;
+      transition: all 0.3s ease;
+  }
+  button[type="submit"]:focus {
+      background-position: 2em -4em;
+      -webkit-transition: all 0.3s ease;
+      -ms-transition: all 0.3s ease;
+      transition: all 0.3s ease;
+  }
+  /* Webfonts */
+  
+  @font-face {
+      font-family: 'Open Sans';
+      font-style: normal;
+      font-weight: 700;
+      src: local('Open Sans Bold'), local('OpenSans-Bold'), url(https://themes.googleusercontent.com/static/fonts/opensans/v8/k3k702ZOKiLJc3WVjuplzHhCUOGz7vYGh680lGh-uXM.woff) format('woff');
+  }
 
 
 

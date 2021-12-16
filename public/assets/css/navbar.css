@@ -1,5 +1,7 @@
+/*ALt i toppen er tilsammen 250px*/
+
 #logo {
-    width: 350px;
+    height: 100px;
     margin: auto;
     display: block;
 }
@@ -16,8 +18,9 @@
     float: right;
 }
 
-
+/*150 px*/
 nav {
+    height: 150px;
     font-weight: bold;
     margin: auto;
     width: 50%;
