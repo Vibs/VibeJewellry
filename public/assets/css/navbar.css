@@ -55,5 +55,5 @@ a.nav-link:hover {
 }
 /* selected link */
 a.nav-link:active {
-    text-decoration: underline;
+    text-decoration: none;
 }

@@ -12,7 +12,8 @@ footer {
 
 #footer-logo {
     display: block;
-    width: 60%;
+    /*width: 70%;*/
+    height: 50px;
     margin: auto;
 }
 
@@ -41,5 +42,5 @@ a.footer-el:hover {
 }
 /* selected link */
 a.footer-el:active {
-    text-decoration: underline;
+    text-decoration: none;
 }

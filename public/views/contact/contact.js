@@ -17,11 +17,10 @@ function sendContactMessage() {
         const messageDetails = {
             name: name,
             email: email,
-            tlf: tlf,
             message: message
         }
 
-        fetch("api/contact", {
+        fetch("/api/contact", {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json; charset=UTF-8' // denne linje siger at dataen som vi sender er en string 

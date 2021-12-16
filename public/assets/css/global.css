@@ -82,14 +82,14 @@ button[type=submit]{
     background-size: 25px 80px;
     
     border-radius: 2em;
-    border: 0.15em solid #85b74d;
+    border: 0.15em solid #5b84b1;
     cursor: pointer;
     transition: all 0.3s ease 0s;
   }
   button[type="submit"]:hover {
       color: #fff;
-      background-color: #85b74d;
-      border-color: #85b74d;
+      background-color: #5b84b1;
+      border-color: #5b84b1;
       background-position: 0.75em bottom;
       -webkit-transition: all 0.3s ease;
       -ms-transition: all 0.3s ease;

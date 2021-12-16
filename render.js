@@ -15,8 +15,8 @@ function createPage(path, options) {
 
     return (nav + mainPage + footer)
         .replace("%%DOCUMENT_TITLE%%", options?.title || "Nodefolio")
-        .replace("%%SCRIPT%%", options?.script ? `<script src="${options.script}"></script>` : "")
-        .replace("%%STYLE%%", options?.styling ? `<link rel="stylesheet" src="${options.styling}"></script>` : "")
+        .replace("%%SCRIPT%%", options?.script ? `<script src="/views/${options.script}"></script>` : "")
+        .replace("%%STYLE%%", options?.styling ? `<link rel="stylesheet" href="/views/${options.styling}"></script>` : "")
         .replace("%%ACTIVE_NAV_LINK%%", options?.activeNavLink);
 }
 
