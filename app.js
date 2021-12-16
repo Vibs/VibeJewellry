@@ -30,16 +30,26 @@ const contactPage = createPage("contact/contact.html", {
     styling: "contact/contact.css",
 });
 
+const jewelryPage = createPage("jewelry/jewelry.html", {
+    title: "Smykker",
+    script: "jewelry/jewelry.js",
+    styling: "jewelry/jewelry.css",
+});
+
 
 // endpoints
 app.get("/", (req, res) => {
     res.send(frontpage);
 })
 
-
 app.get("/contact", (req, res) => {
     res.send(contactPage);
 })
+
+app.get("/jewelry", (req, res) => {
+    res.send(jewelryPage);
+})
+
 
 
 
