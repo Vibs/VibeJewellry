@@ -3,26 +3,26 @@
 footer {
     height: 110px;
     font-size: 70%;
-    padding: 30px 0px 30px 0px;
     margin-top: 100px;
 
-    background-color: #d9e9fc;
-
+    padding: 120px 0px;
+    background-color: #f3f4ee;
+    color: black !important
 }
 
 #footer-logo {
     display: block;
     /*width: 70%;*/
-    height: 50px;
+    height: 30px;
     margin: auto;
 }
 
 span {
-    padding: 0 10px 0 10px;
+    padding: 0 10px;
 }
 
 .footer-el {
-    color: #5b84b1;
+    color: black;
     text-align: center;
     width: 33%;
 }
@@ -33,11 +33,12 @@ a.footer-el:link {
 }
 /* visited link */
 a.footer-el:visited {
-    color: #5b84b1;
+    text-decoration: none;
 }
 /* mouse over link */
 a.footer-el:hover {
-    color: #5b84b1;
+    color: black;
+    font-weight: 800;
 }
 /* selected link */
 a.footer-el:active {

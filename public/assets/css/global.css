@@ -1,5 +1,5 @@
 body {
-    font-family: 'Nunito', sans-serif;
+    font-family: 'Raleway', sans-serif;
     font-size: 30px;
     margin: 0;
 }
@@ -75,12 +75,12 @@ input {
 input {
     width: 50%;
     margin: auto;
-    font-family: 'Nunito', sans-serif;
+    font-family: 'Raleway', sans-serif; /*TODO tjek om man kan sige inherit*/
 }
 
 textarea {
     margin: 10px;
-    font-family: 'Nunito', sans-serif;
+    font-family: 'Raleway', sans-serif; /*TODO tjek om man kan sige inherit*/
 
 }
 
@@ -94,7 +94,7 @@ button[type=submit]{
     padding-left: 1.7rem;
    
     font-weight: bold;
-    font-family: 'Nunito', sans-serif !important;
+    font-family: 'Raleway', sans-serif !important;
     text-transform: uppercase;
     color: #696666;
     background: url(https://i.imgur.com/Th606mh.png) no-repeat scroll 0.75em -0.3em transparent;
