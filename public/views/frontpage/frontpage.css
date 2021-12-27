@@ -2,6 +2,7 @@
     width: 100%;
     margin-top: 50px;
     margin-bottom: 60px;
+    border-width: 1px 0; /*får border top og bot*/
 }
 
 

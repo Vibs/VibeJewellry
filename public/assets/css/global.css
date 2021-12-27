@@ -36,6 +36,15 @@ h1, h2, h3 {
 }
 
 
+.border {
+    border-style: solid;
+    border-color: lightgrey;
+    /*add 
+        border-width: 1px 0;
+    on element
+    */
+}
+
 /*----------FORMS---------*/
 #text {
     height: 200 px;
