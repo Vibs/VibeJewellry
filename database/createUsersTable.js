@@ -7,25 +7,26 @@ dotenv.config();
     const connection = await createConnection();
 
     // admins
-    await connection.exec("DROP TABLE IF EXISTS admins");
+    await connection.exec("DROP TABLE IF EXISTS users");
 
-    const adminTableSchema = 
-    `CREATE TABLE admins (
+    const usersTable = 
+    `CREATE TABLE users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         username TEXT NOT NULL,
         password TEXT NOT NULL)`;
 
-    await connection.exec(adminTableSchema);
+    await connection.exec(usersTable);
 
+    
     try{
         const salt = await bcrypt.genSalt();
-        const hashedPassword = await bcrypt.hash(process.env.ADMIN_PASSWORD, salt);
+        const hashedPassword = await bcrypt.hash(process.env.TEST_USER_PASSWORD, salt);
 
         connection.run(
-            "INSERT INTO admins ('username', 'password') VALUES (?, ?)", 
-            [process.env.ADMIN_USERNAME, hashedPassword]); // bcrypt saves the salt inside the password
+            "INSERT INTO users ('username', 'password') VALUES (?, ?)", 
+            [process.env.TEST_USER_USERNAME, hashedPassword]); // bcrypt saves the salt inside the password
     } catch {
-        console.log("ERROR creating admin");
+        console.log("ERROR creating user");
     }
 
     // refreshTokens
@@ -35,8 +36,6 @@ dotenv.config();
     `CREATE TABLE refresh_tokens (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         token TEXT NOT NULL)`;
-
-
 
     await connection.exec(refreshTokensTable);
 
