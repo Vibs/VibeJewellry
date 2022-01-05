@@ -40,12 +40,10 @@ const allJewelryPage = createPage("jewelry/jewelry.html", {
 
 
 
-const singleJewelryPage = createPage("jewelry/jewelry.html", {
+const singleJewelryPage = createPage("single-jewelry/singleJewelry.html", {
     title: "Smykker",
-    script: [{ src: "/views/jewelry/jewelry.js"}],
-    styling: [
-        { href: "/assets/css/jewelry.css" }, 
-        { href: "/views/product/product.css"}]
+    script: [{ src: "/views/single-jewelry/singleJewelry.js"}],
+    styling: [{ href: "/views/single-jewelry/singleJewelry.css" }],
 });
 
 // endpoints
@@ -62,7 +60,7 @@ app.get("/jewelry", (req, res) => {
 })
 
 app.get("/jewelry/:id", (req, res) => {
-    res.send(singleJewelryPage);
+    res.send(singleJewelryPage.replace("%%ID%%", req.params.id));
 })
 
 

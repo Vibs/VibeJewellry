@@ -22,15 +22,10 @@ function createPage(path, options) {
 
 
 function createStylingLink(styling){
-    console.log(styling);
-
-
-    console.log(`<link rel="stylesheet" href="${styling.href}">`);
     return `<link rel="stylesheet" href="${styling.href}">`;
 }
 
 function createScript(script){
-    console.log(script);
     return `<script src="${script.src}"></script>`;
 }
 

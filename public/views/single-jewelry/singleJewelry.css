@@ -1,0 +1,28 @@
+#jewelry-wrapper{
+    max-width: 1000px;
+    margin: auto;
+}
+
+.single-jewelry {
+    width: 400px;
+    margin-bottom: 10px;
+}
+
+.single-jewelry-image {
+    width: 250px;
+    height: 250px;
+}
+
+.small-image {
+    width: 100px;
+    height: 100px;
+}
+
+#sold-out {
+    background-color: #b6b6b6
+
+}
+
+#add-to-cart {
+    background-color: #dfe09f
+}

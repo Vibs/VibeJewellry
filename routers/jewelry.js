@@ -3,13 +3,55 @@ const router = express.Router();
 
 import { connection } from "../database/connectSqlite.js";
 
-// GET all
+// GET
 router.get("/api/jewelry", async (req, res) => {
-    const projects = await connection.all("SELECT * from jewelry");
+    const jewelry = await connection.all("SELECT * from jewelry");
 
-    res.send(projects);
+    res.send(jewelry);
 });
 
+//GET én fra id
+router.get("/api/jewelry/:id", async (req, res) => {
+    const jewelry = await connection.all("SELECT * from jewelry WHERE id = ?", [req.params.id]);
+
+    jewelry ? res.send(jewelry) : res.sendStatus(404);
+});
+
+// UPDATE
+router.put("/api/jewelry/:id",  (req, res) => {
+    const jewelryToUpdate = req.body.jewwelryFromForm;
+
+    connection.run("UPDATE jewelry SET name = ?, collection = ?, price = ?, stock = ?, WHERE id = ?", 
+        [jewelryToUpdate.name, jewelryToUpdate.collection, jewelryToUpdate.price, jewelryToUpdate.stock, req.params.id]);
+
+    res.send(jewelryToUpdate);
+});
+
+
+//------------------------ ADMIN - TODO
+// POST
+router.post("/api/jewelry", async (req, res) => {
+
+    const jewelryToCreate = req.body;
+
+    connection.run("INSERT INTO jewelry ('name', 'collection', 'price', 'stock') VALUES (?, ?, ?)", 
+        [jewelryToCreate.name, jewelryToCreate.collection, jewelryToCreate.price, jewelryToUpdate.stock]);
+    
+    res.send(jewelryToCreate);
+});
+
+
+
+// DELETE
+router.delete("/api/jewelry/:id", async (req, res) => {
+
+    await connection.run("DELETE FROM jewelry WHERE id = ?", [req.params.id], function(err) {
+        if (err) {
+          res.sendStatus(500);
+        }
+      });
+    res.sendStatus(200);
+});
 
 export default {
     router
