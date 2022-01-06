@@ -19,7 +19,7 @@
 
 p {
     margin: auto;
-    font-size: calc(2 * 1vw);
+    font-size: calc(1.5 * 1vw);
 }
 
 h1 {
@@ -40,11 +40,13 @@ main {
     margin-top: 50px;
     width: 100vw;
     font-weight: 800;
+    margin-left: 2vw;
 }
 
 .jewelry-row {
     width: 100vw;
     height: 120px;
+    margin-left: 2vw;
 }
 
 .image {
@@ -71,6 +73,7 @@ main {
 
 .action {
     font-size: 1.5vw;
+    font-weight: 800;
     margin: 0 5px;
     color: black;
 }
