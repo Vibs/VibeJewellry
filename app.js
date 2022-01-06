@@ -11,7 +11,6 @@ app.use(express.urlencoded({extended: true})); // supports data from forms - nee
 
 
 //------- ROUTES
-
 import contactRouter from "./routers/contact.js";
 app.use(contactRouter.router);
 
@@ -38,8 +37,6 @@ const allJewelryPage = createPage("jewelry/jewelry.html", {
     styling: [{ href: "/assets/css/jewelry.css"}]
 });
 
-
-
 const singleJewelryPage = createPage("single-jewelry/singleJewelry.html", {
     title: "Smykker",
     script: [{ src: "/views/single-jewelry/singleJewelry.js"}],
@@ -62,6 +59,9 @@ app.get("/jewelry", (req, res) => {
 app.get("/jewelry/:id", (req, res) => {
     res.send(singleJewelryPage.replace("%%ID%%", req.params.id));
 })
+
+
+//-------------------ADMIN
 
 
 
