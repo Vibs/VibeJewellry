@@ -1,0 +1,30 @@
+#delete-button {
+    border-radius: 2em;
+    border: 1px solid lightgrey;
+    width: 150px;
+    height: 30px;
+    background-color: rgb(238, 154, 154);
+}
+
+h1 {
+    margin-top: 50px;
+}
+
+.warning {
+    color: red;
+    font-weight: 900;
+    border-radius: 2em;
+    border: 1px solid red;
+    width: 250px;
+    margin: 20px auto;
+    width: 350px;
+    padding: 20px;
+}
+
+input {
+    width: 250px;
+}
+
+p {
+    font-size: 20px;
+}

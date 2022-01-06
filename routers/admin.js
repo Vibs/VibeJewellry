@@ -17,9 +17,23 @@ const frontpage = createPage("frontpage/frontpage.html", {
 
 const create = createPage("create-jewelry/create-jewelry.html", {
     admin: true,
-    title: "Opret smykke",
+    title: "Opret",
     styling: [{ href: "/admin-views/create-jewelry/create-jewelry.css"}],
     script: [{ src: "/admin-views/create-jewelry/create-jewelry.js"}]
+});
+
+const editPage = createPage("edit-jewelry/edit-jewelry.html", {
+    admin: true,
+    title: "Rediger",
+    styling: [{ href: "/admin-views/edit-jewelry/edit-jewelry.css"}],
+    script: [{ src: "/admin-views/edit-jewelry/edit-jewelry.js"}],
+});
+
+const deletePage = createPage("delete-jewelry/delete-jewelry.html", {
+    admin: true,
+    title: "Slet",
+    styling: [{ href: "/admin-views/delete-jewelry/delete-jewelry.css"}],
+    script: [{ src: "/admin-views/delete-jewelry/delete-jewelry.js"}],
 });
 
 // serverer siderne
@@ -31,15 +45,13 @@ router.get("/admin/jewelry/create", (req, res) => {
     res.send(create);
 })
 
-/*
-router.get("admin/jewelry/", (req, res) => {
-    res.send(allJewelryPage);
+router.get("/admin/jewelry/edit/:id", (req, res) => {
+      res.send(editPage.replace("%%ID%%", req.params.id));
 })
 
-router.get("/jewelry/:id", (req, res) => {
-    res.send(singleJewelryPage.replace("%%ID%%", req.params.id));
+router.get("/admin/jewelry/delete/:id", (req, res) => {
+    res.send(deletePage.replace("%%ID%%", req.params.id));
 })
-*/
 
 
 export default {
