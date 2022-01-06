@@ -22,21 +22,29 @@ router.post("/api/jewelry", async (req, res) => {
 
     const jewelryToCreate = req.body;
 
-    connection.run("INSERT INTO jewelry ('name', 'price', 'stock') VALUES (?, ?, ?)", 
+    const created = connection.run("INSERT INTO jewelry ('name', 'price', 'stock') VALUES (?, ?, ?)", 
         [jewelryToCreate.name, jewelryToCreate.price, jewelryToCreate.stock]);
     
-    res.send(jewelryToCreate);
+    res.send(created);
 });
 
 //------------------------ ADMIN - TODO
 // UPDATE
-router.put("/api/jewelry/:id",  (req, res) => {
-    const jewelryToUpdate = req.body.jewwelryFromForm;
+router.patch("/api/jewelry/:id", (req, res) => {
 
-    connection.run("UPDATE jewelry SET name = ?, collection = ?, price = ?, stock = ?, WHERE id = ?", 
-        [jewelryToUpdate.name, jewelryToUpdate.collection, jewelryToUpdate.price, jewelryToUpdate.stock, req.params.id]);
+    const jewelryToUpdate = req.body;
 
-    res.send(jewelryToUpdate);
+    const updated = connection.run("UPDATE jewelry SET name = ?, price = ?, stock = ? WHERE id = ?", 
+        [jewelryToUpdate.name, jewelryToUpdate.price, jewelryToUpdate.stock, req.params.id], (error, result) => {
+            error ? res.send(500) : res.send(result);
+    });
+
+    connection.on("error", function(error) {
+        console.log("Getting an error : ", error);
+        res.sendStatus(500);
+    }); 
+
+    res.send(updated);
 });
 
 
