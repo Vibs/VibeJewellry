@@ -31,7 +31,7 @@ function createJewelry() {
                 alert(`${name} er nu oprettet`);
 
                 // og så redirect til anden side
-                window.location.replace("/");
+                window.location.replace("/admin");
             } else {
                 console.log("Error sending the contact message:", response.status);
                 alert("Der skete en fejl med at oprette smykket");
