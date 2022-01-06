@@ -1,16 +1,21 @@
 #gold-image {
     width: 100%;
-    margin-top: 50px;
-    margin-bottom: 60px;
     border-width: 1px 0; /*får border top og bot*/
 }
 
-
-
-.picture-and-text {
+.image-wrapper {
     position: relative;
-    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 60px;
+    width: 100vw;
 }
+
+.image-text {
+    font-size: 3vw;
+    position: absolute;
+}
+
+
 
 p {
     font-size: calc(2 * 1vw);
@@ -19,14 +24,6 @@ p {
 h1 {
     font-size: calc(3 * 1vw);
 }
-
-.centered {
-    position: absolute;
-    top: 68%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 500px;
-  }
 
 main {
     min-height: calc(100vh - 460px);
