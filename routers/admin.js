@@ -11,15 +11,15 @@ import { createPage } from "../render.js";
 const frontpage = createPage("frontpage/frontpage.html", {
     admin: true,
     title: "Alle smykker",
-    styling: [{ href: "admin-views/frontpage/frontpage.css"}],
-    script: [{ src: "admin-views/frontpage/frontpage.js"}]
+    styling: [{ href: "/admin-views/frontpage/frontpage.css"}],
+    script: [{ src: "/admin-views/frontpage/frontpage.js"}]
 });
 
 const create = createPage("create-jewelry/create-jewelry.html", {
     admin: true,
-    title: "Alle smykker",
-    styling: [{ href: "admin-views/create-jewelry/create-jewelry.css"}],
-    script: [{ src: "admin-views/create-jewelry/create-jewelry.js"}]
+    title: "Opret smykke",
+    styling: [{ href: "/admin-views/create-jewelry/create-jewelry.css"}],
+    script: [{ src: "/admin-views/create-jewelry/create-jewelry.js"}]
 });
 
 // serverer siderne
