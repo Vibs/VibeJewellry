@@ -1,0 +1,5 @@
+input {
+    width: 50%;
+    margin: auto;
+    font-family: 'Raleway', sans-serif; /*TODO tjek om man kan sige inherit*/
+}
