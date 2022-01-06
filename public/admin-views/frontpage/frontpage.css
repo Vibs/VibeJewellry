@@ -56,6 +56,10 @@ main {
 }
 
 .price {
+    width: 15vw;
+}
+
+.stock {
     width: 20vw;
 }
 

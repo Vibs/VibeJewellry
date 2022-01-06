@@ -33,8 +33,8 @@ function createJewelryView(jewelry){
     <img class="image" alt="${escapeHTML(jewelry.name)}" src="/assets/images/jewelry/${escapeHTML(jewelry.image_path)}">
     <p class="name">${escapeHTML(jewelry.name)}</p>
     <p class="price"> ${escapeHTML(jewelry.price.toString(10))} dkk</p>
+    <p class="stock"> ${escapeHTML(jewelry.stock.toString(10))}</p>
     <div class="actions-wrapper">
-        <a href="admin/jewelry/${escapeHTML(jewelry.id.toString(10))}" class="action">Se</a>
         <a href="admin/jewelry/edit/${escapeHTML(jewelry.id.toString(10))}" class="action">Rediger</a>
         <a href="admin/jewelry/delete/${escapeHTML(jewelry.id.toString(10))}" class="action">Slet</a>
     </div>
