@@ -1,0 +1,54 @@
+.jewelry-image {
+    width: 225px;
+    height: 225px;
+}
+
+
+.name {
+    font-weight: bold;
+}
+
+.price {
+    font-style: italic;
+}
+
+#jewelry-wrapper{
+    max-width: 1000px;
+    margin: auto;
+}
+
+/*gør at den rykker smykkeviewet ned når man mindsker bredden, før smykkeviewene rykker ind i hinanden*/
+.jewelry-col {
+    min-width: 225px;
+    margin-bottom: 10px;
+}
+
+.jewelry-col:hover {
+    /*border-style: solid;*/
+    box-shadow: 0 0 10px #d4d66b/*5b84b1;*/
+}
+
+a.jewelry-link {
+    color: black;
+    margin: 10px 10px 10px 10px;
+}
+
+/* unvisited link */
+a.jewelry-link:link {
+    text-decoration: none;
+}
+/* visited link */
+a.jewelry-link:visited {
+    color: black;
+    /*color: #5b84b1;*/
+}
+/* mouse over link */
+a.jewelry-link:hover {
+    color: black;
+    /*color: #5b84b1;*/
+}
+/* selected link */
+a.jewelry-link:active {
+    text-decoration: none;
+}
+

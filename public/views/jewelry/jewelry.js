@@ -22,8 +22,6 @@ fetch("/api/jewelry")
 
 
 function createJewelryView(jewelry){
-    console.log(jewelry);
-
     const jewelryDiv = document.createElement('div');
     jewelryDiv.classList.add("col-xs-6", "col-sm-4", "jewelry-col");
 
