@@ -32,7 +32,9 @@ const frontpage = createPage("frontpage/frontpage.html", {
 
 const contactPage = createPage("contact/contact.html", {
     title: "Kontakt",
-    script: [{ src: "/views/contact/contact.js" }]
+    script: [{ src: "/views/contact/contact.js" }],
+    styling: [{ href: "/views/contact/contact.css"}]
+
 });
 
 const allJewelryPage = createPage("jewelry/jewelry.html", {
