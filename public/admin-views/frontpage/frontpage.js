@@ -34,17 +34,8 @@ function createJewelryView(jewelry){
     ${escapeHTML(jewelry.image_path) 
         ? `<img class="image" alt="${escapeHTML(jewelry.name)}" src="/assets/images/jewelry/${escapeHTML(jewelry.image_path)}">`
         : `<img class="image" alt="default_jewelry_image" src="/assets/images/default_jewelry.jpg">`
-
-    
-    
-    
     }
 
-        
-
-    
-    
-    
     <p class="name">${escapeHTML(jewelry.name)}</p>
     <p class="price"> ${escapeHTML(jewelry.price.toString(10))} dkk</p>
     <p class="stock"> ${escapeHTML(jewelry.stock.toString(10))}</p>
@@ -55,27 +46,6 @@ function createJewelryView(jewelry){
     `;
 
     jewelryWrapper.appendChild(jewelryDiv);
-
 }
 
-
-/*
-function createJewelryView(jewelry){
-    console.log(jewelry);
-
-    const jewelryDiv = document.createElement('div');
-    jewelryDiv.classList.add("col-xs-6", "col-sm-4", "jewelry-col");
-
-    jewelryDiv.innerHTML = `
-    <a class="jewelry-link" href="admin/jewelry/${escapeHTML(jewelry.id.toString(10))}">
-        <img class="jewelry-image" alt="${escapeHTML(jewelry.name)}" src="/assets/images/jewelry/${escapeHTML(jewelry.image_path)}">
-
-        <p class="name">${escapeHTML(jewelry.name)}<p>
-        <p class="price"> ${escapeHTML(jewelry.price.toString(10))} dkk</p>
-    </a>`;
-
-    jewelryWrapper.appendChild(jewelryDiv);
-
-}
-*/
 
