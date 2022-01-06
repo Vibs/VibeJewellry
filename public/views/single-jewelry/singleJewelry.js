@@ -35,11 +35,11 @@ function createSingleJewelryView(jewelry){
         <p class="price"> ${escapeHTML(jewelry.price.toString(10))} dkk</p>
 
         ${jewelry.stock > 0 ?
-            `<div id="sold-out" hidden>Udsolgt</div>
-            <button id="add-to-cart">Læg i kurv</button>`
+            `<div id="sold-out" hidden class="button">Udsolgt</div>
+            <button id="add-to-cart" class="button">Læg i kurv</button>`
             :
-            `<div id="sold-out">Udsolgt</div>
-            <button id="add-to-cart" hidden>Læg i kurv</button>`
+            `<div id="sold-out" class="button">Udsolgt</div>
+            <button id="add-to-cart" hidden class="button">Læg i kurv</button>`
         }`;
 
     jewelryWrapper.appendChild(jewelryDiv);
