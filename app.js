@@ -10,6 +10,7 @@ app.use(express.json()); // makes express interprer incoming data as json
 app.use(express.urlencoded({extended: true})); // supports data from forms - needed to parse form-data
 
 
+
 //------- ROUTES
 import contactRouter from "./routers/contact.js";
 app.use(contactRouter.router);
@@ -17,12 +18,15 @@ app.use(contactRouter.router);
 import jewelryRouter from "./routers/jewelry.js";
 app.use(jewelryRouter.router);
 
+import adminRouter from "./routers/admin.js";
+app.use(adminRouter.router);
 
-// Forbereder siderne
+// func som bruges til at forberede siderne
 import { createPage } from "./render.js";
 
+// Forbereder siderne
 const frontpage = createPage("frontpage/frontpage.html", {
-    title: "VibeJewelry",
+    title: "Hjem",
     styling: [{ href: "/views/frontpage/frontpage.css" }]
 });
 
@@ -34,7 +38,7 @@ const contactPage = createPage("contact/contact.html", {
 const allJewelryPage = createPage("jewelry/jewelry.html", {
     title: "Smykker",
     script: [{ src: "/views/jewelry/jewelry.js" }],
-    styling: [{ href: "/assets/css/jewelry.css"}]
+    styling: [{ href: "/views/jewelry/jewelry.css"}]
 });
 
 const singleJewelryPage = createPage("single-jewelry/singleJewelry.html", {
