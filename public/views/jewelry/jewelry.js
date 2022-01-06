@@ -28,11 +28,12 @@ function createJewelryView(jewelry){
     jewelryDiv.innerHTML = `
     <a class="jewelry-link" href="/jewelry/${escapeHTML(jewelry.id.toString(10))}">
 
-        
+        <div id="image-wrapper">
         ${escapeHTML(jewelry.image_path) 
             ? `<img class="image" alt="${escapeHTML(jewelry.name)}" src="/assets/images/jewelry/${escapeHTML(jewelry.image_path)}">`
             : `<img class="image" alt="default_jewelry_image" src="/assets/images/default_jewelry.jpg">`
         }
+        </div>
         <p class="name">${escapeHTML(jewelry.name)}<p>
         <p class="price"> ${escapeHTML(jewelry.price.toString(10))} dkk</p>
     </a>`;
