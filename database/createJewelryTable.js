@@ -9,7 +9,6 @@ import { createConnection } from "./connectSqlite.js";
     `CREATE TABLE jewelry (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
-        collection TEXT,
         price REAL NOT NULL,
         stock INTEGER NOT NULL,
         image_path TEXT)`; // TODO udkommenter denne
