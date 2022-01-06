@@ -17,6 +17,18 @@ router.get("/api/jewelry/:id", async (req, res) => {
     jewelry ? res.send(jewelry) : res.sendStatus(404);
 });
 
+// POST
+router.post("/api/jewelry", async (req, res) => {
+
+    const jewelryToCreate = req.body;
+
+    connection.run("INSERT INTO jewelry ('name', 'price', 'stock') VALUES (?, ?, ?)", 
+        [jewelryToCreate.name, jewelryToCreate.price, jewelryToCreate.stock]);
+    
+    res.send(jewelryToCreate);
+});
+
+//------------------------ ADMIN - TODO
 // UPDATE
 router.put("/api/jewelry/:id",  (req, res) => {
     const jewelryToUpdate = req.body.jewwelryFromForm;
@@ -26,20 +38,6 @@ router.put("/api/jewelry/:id",  (req, res) => {
 
     res.send(jewelryToUpdate);
 });
-
-
-//------------------------ ADMIN - TODO
-// POST
-router.post("/api/jewelry", async (req, res) => {
-
-    const jewelryToCreate = req.body;
-
-    connection.run("INSERT INTO jewelry ('name', 'collection', 'price', 'stock') VALUES (?, ?, ?)", 
-        [jewelryToCreate.name, jewelryToCreate.collection, jewelryToCreate.price, jewelryToUpdate.stock]);
-    
-    res.send(jewelryToCreate);
-});
-
 
 
 // DELETE
