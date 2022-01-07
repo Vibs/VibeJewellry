@@ -4,30 +4,33 @@ submitButton.addEventListener('click', createJewelry);
 
 const fileReader = new FileReader();
 let base64;
+let fileName;
 
 fileReader.addEventListener("load", function (event) {
     base64 = event.target.result;
 })
 
+const imageInput = document.getElementById('imageInput');
+
+
+function createBase64() {
+    fileName = imageInput.files[0].name;
+    fileReader.readAsDataURL(imageInput.files[0]);
+}
+
+
 function createJewelry() {
-    /*
-    i stedet for at gemme felterne i varibaler udenfor functionen, så sætter jeg det indeni
-    FORDI hvis det står udenfor, blvier initial load langsommere - det vil vi IKKE have
-    desuden skal vi kun bruge felterne én gang
-    */
     const name = document.getElementById('name').value;
     const price = document.getElementById('price').value;
-    const stock = document.getElementById('stock').value;
-    const imageInput = document.getElementById('imageInput').files[0];
-
-    fileReader.readAsDataURL(imageInput);
+    const stock = document.getElementById('stock').value;   
 
     if(name && price){
         const jewelry = {
             name: name,
             price: price,
             stock: stock ? stock : 0,
-            base64: base64
+            base64: base64,
+            fileName: fileName
         }
 
         fetch("/api/jewelry", {

@@ -1,5 +1,6 @@
 import express from "express";
 const router = express.Router();
+import fs from "fs";
 
 import { connection } from "../database/connectSqlite.js";
 
@@ -22,11 +23,39 @@ router.post("/api/jewelry", async (req, res) => {
 
     const jewelryToCreate = req.body;
 
-    const created = connection.run("INSERT INTO jewelry ('name', 'price', 'stock') VALUES (?, ?, ?)", 
-        [jewelryToCreate.name, jewelryToCreate.price, jewelryToCreate.stock]);
+    let imagePath = null;
+
+    if(jewelryToCreate.base64){
+        // sæt imagePath to ny imagePath
+        imagePath = `./public/assets/images/jewelry/${jewelryToCreate.fileName}`;
+
+        // gem billede lokalt i projekt
+        fs.writeFile(imagePath, decodeBase64Image(jewelryToCreate.base64).data, 'base64', function(err) {
+            console.log(err);
+        });
+
+    }
+
+
+    const created = connection.run("INSERT INTO jewelry ('name', 'price', 'stock', 'image_path') VALUES (?, ?, ?, ?)", 
+        [jewelryToCreate.name, jewelryToCreate.price, jewelryToCreate.stock, jewelryToCreate.fileName]);
     
     res.send(created);
 });
+
+function decodeBase64Image(dataString) {
+    var matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/),
+      response = {};
+  
+    if (matches.length !== 3) {
+      return new Error('Invalid input string');
+    }
+  
+    response.type = matches[1];
+    response.data = new Buffer(matches[2], 'base64');
+  
+    return response;
+  }
 
 //------------------------ ADMIN - TODO
 // UPDATE
