@@ -9,3 +9,9 @@
 h1 {
     margin-top: 50px;
 }
+
+#temp-image {
+    width: 10vw;
+    padding: 4px 0;
+    margin: auto;
+}

@@ -2,6 +2,13 @@ const submitButton = document.getElementById('submit-button');
 
 submitButton.addEventListener('click', createJewelry);
 
+const fileReader = new FileReader();
+let base64;
+
+fileReader.addEventListener("load", function (event) {
+    base64 = event.target.result;
+})
+
 function createJewelry() {
     /*
     i stedet for at gemme felterne i varibaler udenfor functionen, så sætter jeg det indeni
@@ -11,12 +18,16 @@ function createJewelry() {
     const name = document.getElementById('name').value;
     const price = document.getElementById('price').value;
     const stock = document.getElementById('stock').value;
+    const imageInput = document.getElementById('imageInput').files[0];
+
+    fileReader.readAsDataURL(imageInput);
 
     if(name && price){
         const jewelry = {
             name: name,
             price: price,
-            stock: stock ? stock : 0
+            stock: stock ? stock : 0,
+            base64: base64
         }
 
         fetch("/api/jewelry", {

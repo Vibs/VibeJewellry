@@ -1,5 +1,11 @@
 <h1>Opret</h1>
 <div id="form">
+    <label for="imageInput">Billede</label>
+    <input type="file" id="imageInput" name="image" accept="image/*"
+        onchange="document.getElementById('temp-image').src = window.URL.createObjectURL(this.files[0])">
+
+    <img id="temp-image" class="image" alt="default_jewelry_image" src="/assets/images/default_jewelry.jpg">
+
     <label for="name">Navn</label>
     <input id="name" type="text">
 
