@@ -3,6 +3,9 @@
 
 2. få icon i browser-tab til at virke
 
+3. tilføj catch på alle fetch
+
+4. Ret alle fetch-endpoints så jeg skriver explicit hvilken port - nu hvor jeg har flere servere
 
 
 
