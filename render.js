@@ -18,7 +18,7 @@ function createPage(path, options) {
         if(path){
             mainPage = fs.readFileSync(`./public/admin-views/${path}`, "utf8");
         }
-        nav = adminNav;
+        nav = options?.excludeNavbar ? "" : adminNav;
         footer = adminFooter;
     }
 
