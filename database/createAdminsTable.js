@@ -25,7 +25,7 @@ dotenv.config();
             "INSERT INTO admins ('username', 'password') VALUES (?, ?)", 
             [process.env.ADMIN_USERNAME, hashedPassword]); // bcrypt saves the salt inside the password
     } catch {
-        console.log("ERROR creating admin");
+        console.log("ERROR creating admins");
     }
 
     // refreshTokens

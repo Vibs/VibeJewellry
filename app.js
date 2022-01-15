@@ -1,17 +1,18 @@
 import express from "express";
 const app = express();
+app.use(express.static("public")); // defines that express finds static files in the public-folder
+app.use(express.json()); // makes express interprer incoming data as json
+app.use(express.urlencoded({extended: true})); // supports data from forms - needed to parse form-data
 
 import dotenv from 'dotenv';
 dotenv.config();
 
 
-app.use(express.static("public")); // defines that express finds static files in the public-folder
-app.use(express.json()); // makes express interprer incoming data as json
-app.use(express.urlencoded({extended: true})); // supports data from forms - needed to parse form-data
-
-
 
 //------- ROUTES
+import authRouter from "./routers/auth.js";
+app.use(authRouter.router);
+
 import contactRouter from "./routers/contact.js";
 app.use(contactRouter.router);
 
@@ -23,6 +24,7 @@ app.use(adminRouter.router);
 
 // func som bruges til at forberede siderne
 import { createPage } from "./render.js";
+import cookieParser from "cookie-parser";
 
 // Forbereder siderne
 const frontpage = createPage("frontpage/frontpage.html", {
@@ -65,30 +67,6 @@ app.get("/jewelry", (req, res) => {
 app.get("/jewelry/:id", (req, res) => {
     res.send(singleJewelryPage.replace("%%ID%%", req.params.id));
 })
-
-
-//-------------------ADMIN
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 const PORT = 8080;
