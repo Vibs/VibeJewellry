@@ -40,8 +40,8 @@ function createJewelryView(jewelry){
     <p class="price"> ${escapeHTML(jewelry.price.toString(10))} dkk</p>
     <p class="stock"> ${escapeHTML(jewelry.stock.toString(10))}</p>
     <div class="actions-wrapper">
-        <a href="admin/jewelry/edit/${escapeHTML(jewelry.id.toString(10))}" class="action">Rediger</a>
-        <a href="admin/jewelry/delete/${escapeHTML(jewelry.id.toString(10))}" class="action">Slet</a>
+        <a href="admin/jewelry/edit/${escapeHTML(jewelry.id.toString(10))}" class="action edit-link">Rediger</a>
+        <a href="admin/jewelry/delete/${escapeHTML(jewelry.id.toString(10))}" class="action delete-link">Slet</a>
     </div>
     `;
 
