@@ -7,6 +7,8 @@
 
 4. Ret alle fetch-endpoints så jeg skriver explicit hvilken port - nu hvor jeg har flere servere
 
+5. Ret i gitignore så db ikke bliver taget med og slet den fra deroppe - den skal vel ikke ligge deroppe??
+
 
 
 
