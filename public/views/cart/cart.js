@@ -20,9 +20,9 @@ fetch(`/users/${userId}/cartItems`, {
     const amountOfItems = cartItems.length;
     if(amountOfItems == 0) {
         headline.innerText = "Der er intet i din indkøbskurv endnu";
-    } else {
+    } /*else {
         headline.innerText += `(${amountOfItems} varer)`;
-    }
+    }*/
     cartItems.forEach(cartItem => createCartJewelryView(cartItem));
 })
 .catch(error => console.error('Error getting cart-items: ', error));
