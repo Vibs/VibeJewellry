@@ -4,8 +4,7 @@
     "create-admins-db": "node ./database/createAdminsTable.js",
     "create-jewelry-db": "node ./database/createJewelryTable.js",
     "create-users-db": "node ./database/createUsersTable.js",
-    "start": "nodemon.cmd app.js",
-    "startAuth": "nodemon.cmd authServer.js"
+    "start": "nodemon.cmd app.js"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",

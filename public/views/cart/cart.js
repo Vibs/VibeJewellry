@@ -1,27 +1,25 @@
 const jewelryWrapper = document.getElementById("jewelry-wrapper");
 
-fetch("/api/jewelry")
-.then(response => response.json())
-.then(jewelryList => jewelryList.forEach(jewelry => createJewelryView(jewelry)));
-/*
-    console.log(response);
-    if(response.status === 200) {
-        //Ja, I know den er grim puhaaa
-        alert("Projektet blev oprettet");
+let userId = getCookie('userId');
 
-        // og så redirect til anden side
-        window.location.replace("/dashboard");
-        
-    } else {
-        console.log("Error creatinh project:", response.status);
-        alert("Der skete en fejl med at oprette projektet");
+fetch(`/users/${userId}/cartItems`, {
+    method: 'GET', 
+    headers: {
+        'Accept': 'application/json'
     }
 })
-*/
+.then(response => {
+    if(response.ok){
+        return response.json();
+    }else {
+        throw new Error(`${response.status} ${response.statusText}`);
+    }
+})
+.then(cartItems => cartItems.forEach(cartItem => createCartJewelryView(cartItem)))
+.catch(error => console.error('Error getting cart-items: ', error));
 
 
-
-function createJewelryView(jewelry){
+function createCartJewelryView(jewelry){
     const jewelryDiv = document.createElement('div');
 
     jewelryDiv.classList.add("jewelry-row", "align-vert-hor");

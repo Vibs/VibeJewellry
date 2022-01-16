@@ -1,14 +1,7 @@
 import express from "express";
 const router = express.Router();
 
-import authRouter from "./auth.js";
-
-import cookieParser from "cookie-parser";
-router.use(cookieParser());
-
-import jwt from "jsonwebtoken";
-
-import { connection } from "../database/connectSqlite.js";
+import authRouter from "./adminAuth.js";
 
 // func som bruges til at forberede siderne
 import { createPage } from "../render.js";
@@ -61,6 +54,7 @@ router.get("/admin/login", (req, res) => {
 });
 
 router.get("/admin", authRouter.authenticateToken, (req, res) => {
+    console.log(req.user);
     res.send(frontpage);
 });
 

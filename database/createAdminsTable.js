@@ -34,18 +34,8 @@ dotenv.config();
     const refreshTokensTable = 
     `CREATE TABLE refresh_tokens (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        token TEXT NOT NULL)`;
-
-
+        token TEXT NOT NULL
+    )`;
 
     await connection.exec(refreshTokensTable);
-
-    /*
-    await connection.run(
-        "INSERT INTO refresh_tokens ('token') VALUES (?)", 
-        ["Token yas"]);
-    
-
-    console.log(await connection.all("SELECT * FROM refresh_tokens"));
-    */
 })()

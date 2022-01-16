@@ -83,5 +83,10 @@ a.nav-link:active {
 
 
 #return-btn {
-    font-size: 15px
+    font-size: 15px;
+    border-radius: 2em;
+    border: 1px solid lightgrey;
+    padding: 10px 10px;
+    background-color: rgb(235, 235, 235);
+    width: 71px;
 }

@@ -9,6 +9,10 @@
 
 5. Ret i gitignore så db ikke bliver taget med og slet den fra deroppe - den skal vel ikke ligge deroppe??
 
+6. opdater .env_sample så den er tilsvarende
+
+7. insert await før alle connection.run og .all
+
 
 
 

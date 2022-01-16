@@ -1,0 +1,116 @@
+#gold-image {
+    width: 100%;
+    border-width: 1px 0; /*får border top og bot*/
+}
+
+.image-wrapper {
+    position: relative;
+    margin-top: 50px;
+    margin-bottom: 60px;
+    width: 100vw;
+}
+
+.image-text {
+    font-size: 3vw;
+    position: absolute;
+}
+
+
+
+p {
+    margin: auto;
+    font-size: calc(1.5 * 1vw);
+}
+
+h1 {
+    font-size: calc(3 * 1vw);
+}
+
+main {
+    min-height: calc(100vh - 460px);
+    text-align: center;
+    font-size: 50%;
+    box-sizing: content-box;
+    display: inline-block;
+
+}
+
+
+#headline-row {
+    margin-top: 50px;
+    width: 96vw;
+    font-weight: 800;
+    margin-left: 2vw;
+}
+
+.jewelry-row {
+    width: 96vw;
+    height: 120px;
+    margin-left: 2vw;
+}
+
+.image {
+    width: 10vw;
+    padding: 4px 0;
+}
+
+.name {
+    width: 40vw;
+}
+
+.price {
+    width: 15vw;
+}
+
+.stock {
+    width: 20vw;
+}
+
+.actions-wrapper {
+    display: flex;
+    width: 20vw;
+}
+
+.action {
+    font-size: 1.5vw;
+    font-weight: 800;
+    margin: 0 5px;
+    color: black;
+}
+
+.actions-hidden-headline {
+    width: 20vw;
+}
+
+.edit-link {
+    border-radius: 2em;
+    border: 1px solid lightgrey;
+    padding: 2px 10px;
+    background-color: #b6b6b6; /*rgb(168, 211, 168);*/
+}
+.delete-link {
+    border-radius: 2em;
+    border: 1px solid lightgrey;
+    padding: 2px 10px;
+    background-color: rgb(238, 154, 154);
+}
+
+
+/* unvisited link */
+a.action:link {
+    text-decoration: none;
+}
+/* visited link */
+a.action:visited {
+    color: black;
+    /*color: #5b84b1;*/
+}
+/* mouse over link */
+a.action:hover {
+    color: black;
+    /*color: #5b84b1;*/
+}
+/* selected link */
+a.action:active {
+    text-decoration: none;
+}

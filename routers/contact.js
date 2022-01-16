@@ -4,9 +4,6 @@ const router = express.Router();
 import nodemailer from "nodemailer";
 
 router.post("/api/contact", (req, res) => {
-
-    console.log("Hej fra api/contact");
-
     let status = 200;
     
     let transporter = nodemailer.createTransport({

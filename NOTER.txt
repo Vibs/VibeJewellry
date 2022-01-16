@@ -1,3 +1,6 @@
 Disse to linjer er brugt til at generere ACCESS_TOKEN_SECRET og REFRESH_TOKEN_SECRET
 import crypto from "crypto";
 console.log("RANDOM:" + crypto.randomBytes(64).toString('hex'));
+
+Info omkring accessTokens:
+https://www.youtube.com/watch?v=mbsmsi7l3r4

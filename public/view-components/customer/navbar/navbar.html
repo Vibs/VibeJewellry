@@ -29,6 +29,7 @@
 
     <!--Scripts-->
     <script src="/assets/lib/escapeHTML.js"></script>
+
     <!--
     <script>
         const activeNavLink = "%%ACTIVE_NAV_LINK%%";
@@ -49,20 +50,33 @@
         <a class="nav-link" href="/">HJEM</a>    
         <a class="nav-link" href="/jewelry">SMYKKER</a>    
         <div id="nav-user-links-wrapper">
-         
-            <a href="/cart">
-                <img  class="user-link-icon" src="/assets/images/icons/cart-icon.png" alt="logo">
-            </a> 
-            <div id="user-icon" href="/cart">
-                <img class="user-link-icon" src="/assets/images/icons/default_user.png" alt="logo">
-            </div> 
-           
-          
 
+            <a href="/cart" class="nav-icon">
+                <img  class="user-nav-link" src="/assets/images/icons/cart-icon.png" alt="logo">
+            </a> 
+
+            <div id="loggedInDropdown" class="dropdown nav-icon" hidden>
+                <img class="user-nav-link" src="/assets/images/icons/default_user.png" alt="logo">
+                <div class="dropdown-content">
+                    <a id="profileLink" href="/">Min Profil</a>
+                    <a id="ordersLink" href="/">Mine Ordrer</a>
+                    <div id="logOut">Log ud</div>
+                </div>
+            </div>
+
+            <div id="loggedOutDropdown" class="dropdown nav-icon">
+                <img class="user-nav-link" src="/assets/images/icons/default_user.png" alt="logo">
+                <div class="dropdown-content">
+                    <a href="/users/login">Log ind</a>
+                </div>
+            </div>
+        
         </div>
-    
-     
     </nav>
 
     <main>
+
+    <script src="/view-components/customer/navbar/navbar.js"></script>
+
+    
 

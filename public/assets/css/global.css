@@ -153,3 +153,12 @@ embed {
     align-items: center;
     justify-content: center;
 }
+
+.green-button {
+
+    border-radius: 2em;
+    border: 1px solid lightgrey;
+    width: 150px;
+    height: 30px;
+    background-color: rgb(168, 211, 168);
+}

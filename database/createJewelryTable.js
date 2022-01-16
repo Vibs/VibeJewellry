@@ -11,9 +11,8 @@ import { createConnection } from "./connectSqlite.js";
         name TEXT NOT NULL,
         price REAL NOT NULL,
         stock INTEGER NOT NULL,
-        image_path TEXT)`; // TODO udkommenter denne
+        image_path TEXT)`;
 
-    console.log("i gang med db");
 
     await connection.exec(jewelryTable);
 

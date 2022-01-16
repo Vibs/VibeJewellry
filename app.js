@@ -7,11 +7,15 @@ app.use(express.urlencoded({extended: true})); // supports data from forms - nee
 import dotenv from 'dotenv';
 dotenv.config();
 
-
-
 //------- ROUTES
-import authRouter from "./routers/auth.js";
-app.use(authRouter.router);
+import adminAuthRouter from "./routers/adminAuth.js";
+app.use(adminAuthRouter.router);
+
+import userAuthRouter from "./routers/userAuth.js";
+app.use(userAuthRouter.router);
+
+const authenticateToken = userAuthRouter.authenticateToken;
+
 
 import contactRouter from "./routers/contact.js";
 app.use(contactRouter.router);
@@ -19,14 +23,34 @@ app.use(contactRouter.router);
 import jewelryRouter from "./routers/jewelry.js";
 app.use(jewelryRouter.router);
 
+import cartRouter from "./routers/cart.js";
+app.use(cartRouter.router);
+
+import userRouter from "./routers/user.js";
+app.use(userRouter.router);
+
 import adminRouter from "./routers/admin.js";
 app.use(adminRouter.router);
 
 // func som bruges til at forberede siderne
 import { createPage } from "./render.js";
-import cookieParser from "cookie-parser";
 
 // Forbereder siderne
+const loginPage = createPage("login/login.html", {
+    title: "Log ind",
+    script: [{ src: "/views/login/login.js" }],
+});
+
+const createUserPage = createPage("create-user/createUser.html", {
+    title: "Log ind",
+    script: [{ src: "/views/create-user/createUser.js" }],
+});
+
+const profilePage = createPage("profile/profile.html", {
+    title: "Profil",
+    script: [{ src: "/views/profile/profile.js" }],
+});
+
 const frontpage = createPage("frontpage/frontpage.html", {
     title: "Hjem",
     styling: [{ href: "/views/frontpage/frontpage.css" }]
@@ -36,7 +60,6 @@ const contactPage = createPage("contact/contact.html", {
     title: "Kontakt",
     script: [{ src: "/views/contact/contact.js" }],
     styling: [{ href: "/views/contact/contact.css"}]
-
 });
 
 const allJewelryPage = createPage("jewelry/jewelry.html", {
@@ -56,6 +79,18 @@ app.get("/", (req, res) => {
     res.send(frontpage);
 })
 
+app.get("/users/login", (req, res) => {
+    res.send(loginPage);
+})
+
+app.get("/users/:userId/profile", authenticateToken, (req, res) => {
+    res.send(profilePage);
+})
+
+app.get("/users/create", (req, res) => {
+    res.send(createUserPage);
+})
+
 app.get("/contact", (req, res) => {
     res.send(contactPage);
 })
@@ -67,6 +102,8 @@ app.get("/jewelry", (req, res) => {
 app.get("/jewelry/:id", (req, res) => {
     res.send(singleJewelryPage.replace("%%ID%%", req.params.id));
 })
+
+
 
 
 const PORT = 8080;

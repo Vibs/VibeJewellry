@@ -4,7 +4,7 @@ returnBtn.addEventListener('click', returnToCustomerView);
 
 function returnToCustomerView() {
 
-    fetch("http://localhost:8080/admin/logout", {
+    fetch("/admin/logout", {
         method: 'DELETE'
     })
     .then(response => {

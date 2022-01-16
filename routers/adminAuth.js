@@ -20,7 +20,7 @@ import { connection } from "../database/connectSqlite.js";
 
 
 // callbacken er async fordi jeg bruger bcrypt, som er et async library
-router.post("/login", async (req, res) => {
+router.post("/admin/login", async (req, res) => {
     // authenticate user
     //https://www.youtube.com/watch?v=Ud5xKCYQTjM
 
@@ -41,7 +41,7 @@ router.post("/login", async (req, res) => {
             const user = { name: userFromBody.username };
 
             const accessToken = generateAccessToken(user);
-            const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET);
+            const refreshToken = generateRefreshToken(user);
 
             await connection.run("INSERT INTO refresh_tokens ('token') VALUES (?)", 
             [refreshToken]);
@@ -69,13 +69,10 @@ router.post("/login", async (req, res) => {
 
 
 const authenticateToken = (req, res, next) => {
-    console.log("Hej fra authenticateToken");
     // TODO det er hre jeg er nået til
     const accessToken = req.cookies.accessToken;
 
     if(accessToken == null){
-        // intet token sendt i header --> derfor ingen access
-        console.log("der er intet token");
         return res.redirect('/admin/login');
     }
 
@@ -87,19 +84,15 @@ const authenticateToken = (req, res, next) => {
             //-----------REFRESH-----------
 
             return tryWithRefreshToken(req, res, next);
-
-            // accessToken er invalid
-            return res.sendStatus(403);
         }
         // accessToken er valid
-        console.log("Tokenen ER valid");
+        req.user = user;
         next(); // kalder den callback som bliver givet med når vi kalder authenticateToken()-func
     })
 }
 
 
 const tryWithRefreshToken = async (req, res, next) => {
-    console.log("inde i tryWithRefreshToken");
     const refreshToken = req.cookies.refreshToken;
             
     if(refreshToken == null) { // hvis ingen refreshToken
@@ -112,11 +105,8 @@ const tryWithRefreshToken = async (req, res, next) => {
         [refreshToken]
     );
 
-    console.log("Blev den fundet i db??? ", refreshTokensFromDb);
-    console.log("count:", refreshTokensFromDb.length);
     // hvis den IKKE er der
     if(refreshTokensFromDb.length < 1){
-        console.log("Nopes, den er er ikke i db");
         // refreshToken som du sendte er ikke i db - så du har ikke access
         return res.redirect('/admin/login');
     }
@@ -151,51 +141,17 @@ const tryWithRefreshToken = async (req, res, next) => {
         // slet gamle refreshToken
         connection.run("DELETE FROM refresh_tokens WHERE token = ?", [refreshToken]);
 
+        //req.user = user; // tilføj evt senere: kan være den skal bruges
         next();
     });
 }
 
-// TODO slet denne hvis den ikke bruges
-// bruges til at lave en ny token
-router.post("/token", async (req, res) => {
-    const refreshToken = req.body.token;
-    
-    if(refreshToken == null) {
-        return res.sendStatus(401);
-    }
-
-    // leder efter refreshToken'en i db
-    const refreshTokensFromDb = await connection.all(
-        "SELECT * FROM refresh_tokens WHERE token = ?", 
-        [refreshToken]);
-
-    // hvis den IKKE er der
-    if(!refreshTokensFromDb){
-        // refreshToken som du sendte er ikke i db - så du har ikke access
-        return res.sendStatus(403);
-    }
-
-    // hvis den blev fundet i db - bekræft at refreshTokenet er det rigtige
-    jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (error, user) => {
-        if(error){
-            return res.sendStatus(403);
-        }
-
-        // hvis det ER rigtigt - så dan et nyt accesstoken, som returneres
-        // {name: user.name} og IKKE bare user, fordi user-obj indeholder noget additional info
-        const accessToken = generateAccessToken({name: user.name})
-        res.json({accessToken: accessToken});
-    })
-});
 
 router.delete("/admin/logout", async (req, res) => {
-    console.log("refresh i delete:", req.cookies.refreshToken);
     connection.run("DELETE FROM refresh_tokens WHERE token = ?", [req.cookies.refreshToken]);
 
     const tokenFromDb = await connection.all("SELECT * FROM refresh_tokens WHERE token = ?", [req.cookies.refreshToken]);
 
-
-    console.log("er den der stadig?", tokenFromDb);
     res.sendStatus(200);
 })
 
@@ -204,7 +160,7 @@ function generateAccessToken(user){
 }
 
 function generateRefreshToken(user) {
-    return jwt.sign(user, process.env.REFRESH_TOKEN_SECRET);
+    return jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, {expiresIn: '1d'});
 }
 
 export default {

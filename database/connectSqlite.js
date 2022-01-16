@@ -8,11 +8,13 @@ export let connection;
         filename: "./database/VibeJewelry.db",
         driver: sqlite3.Database
     });
-})()
+})();
+
 
 export async function createConnection() {
     return await open({
         filename: "./database/VibeJewelry.db",
         driver: sqlite3.Database
     });
-}
+};
+
