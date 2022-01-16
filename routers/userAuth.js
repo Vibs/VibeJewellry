@@ -87,22 +87,17 @@ const authenticateToken = (req, res, next) => {
 
         // TODO tjek at user.email's id matcher med req.params.userId
         if(await doesTokenUserEmailAndParamUserIdMatch(req.params.userId, user.email) == true){
-            console.log("NOopoooo");
-             //req.user = user;
+            console.log("access er gyldig");
             next(); // kalder den callback som bliver givet med når vi kalder authenticateToken()-func
         } else { // useren med dette accessToken requester en anden users oplysninger
-            console.log("else");
             return res.redirect('/users/login');
         }
     })
 }
 
 async function doesTokenUserEmailAndParamUserIdMatch(id, email) {
-    console.log(`id: ${id}, email: ${email}`);
     const foundUser = await connection.all("SELECT * FROM users WHERE id = ? AND email = ?", [id, email]);
 
-    console.log("foundUser", foundUser);
-    console.log("length", foundUser.length > 0);
     return foundUser.length > 0;
 }
 
@@ -134,7 +129,6 @@ const tryWithRefreshToken = async (req, res, next) => {
 
         // tjek om tokenen (som er der og er valid) er sendt fra samme bruge som der anmodes data om
         if(await doesTokenUserEmailAndParamUserIdMatch(req.params.userId, user.email) == true){
-            console.log("next i refresh");
 
             // hvis den er valid og den rette brugers - så dan et nyt accesstoken, som returneres
             // {name: user.name} og IKKE bare user, fordi user-obj indeholder noget additional info
@@ -161,12 +155,39 @@ const tryWithRefreshToken = async (req, res, next) => {
             //req.user = user;
            next(); // kalder den callback som bliver givet med når vi kalder authenticateToken()-func
        } else { // useren med dette accessToken requester en anden users oplysninger
-            console.log("else i refresh");
            return res.redirect('/users/login');
        }
     });
 }
 
+router.post("/users/loggedIn", async (req, res) => {
+    const refreshToken = req.cookies.refreshToken;
+
+    if(refreshToken == null) {
+        return res.json({ loggedIn: false });
+    }
+
+    // leder efter refreshToken'en i db
+    const refreshTokensFromDb = await connection.all(
+        "SELECT * FROM user_refresh_tokens WHERE token = ?", 
+        [refreshToken]
+    );
+
+    // hvis den IKKE er der
+    if(refreshTokensFromDb.length < 1){
+        return res.json({ loggedIn: false });
+    }
+
+    // hvis den blev fundet i db - bekræft at refreshTokenet er valid
+    jwt.verify(refreshToken, process.env.USER_REFRESH_TOKEN_SECRET, (error, user) => {
+        if(error) {
+            return res.json({ loggedIn: false });
+        }
+        return res.json({ loggedIn: true }); // der er valid refreshToken
+    });
+});
+
+/*
 router.post("/users/loggedIn", (req, res) => {
     const accessToken = req.cookies.accessToken;
 
@@ -209,6 +230,7 @@ router.post("/users/loggedIn", (req, res) => {
     });
 
 });
+*/
 
 
 router.delete("/users/logout", async (req, res) => {

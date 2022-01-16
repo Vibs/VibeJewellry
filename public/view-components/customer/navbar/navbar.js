@@ -1,5 +1,7 @@
 const loggedOutDropdown = document.getElementById('loggedOutDropdown');
 const loggedInDropdown = document.getElementById('loggedInDropdown');
+const loggedOutCartLink = document.getElementById('loggedOutCartLink');
+const loggedInCartLink = document.getElementById('loggedInCartLink');
 
 const logOut = document.getElementById('logOut');
 
@@ -22,7 +24,7 @@ function fetchLogOut() {
     })
     .then(response => {
         if(response.ok){
-            alert("Du er nu logget ud")
+            alert("Du er nu logget ud");
             window.location.replace("/");
         } else {
             throw new Error(`${response.status}: ${response.statusText}`);
@@ -32,19 +34,24 @@ function fetchLogOut() {
 }
 
 function modifyUserDropdown(data) {
-  if (data.loggedIn) {
+ 
+  if(data.loggedIn) {
     loggedInDropdown.hidden = false;
     loggedOutDropdown.hidden = true;
+    loggedInCartLink.hidden = false;
+    loggedOutCartLink.hidden = true;
   }
-
+  
   const userId = getCookie("userId");
 
   if (userId) {
     const profileLink = document.getElementById('profileLink');
     const ordersLink = document.getElementById('ordersLink');
+    const cartLink = document.getElementById('cartLink');
 
     profileLink.setAttribute("href", `/users/${userId}/profile`);
     ordersLink.setAttribute("href", `/users/${userId}/orders`);
+    loggedInCartLink.setAttribute("href", `/users/${userId}/cart`);
   }
 }
 

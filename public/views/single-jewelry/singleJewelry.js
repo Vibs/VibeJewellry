@@ -51,12 +51,43 @@ function createSingleJewelryView(jewelry){
 
     //så tilføj eventlistener på knap
     const addToCartButton = document.getElementById("add-to-cart");
-    addToCartButton.addEventListener('click', addToCart(jewelryId));
+    addToCartButton.addEventListener('click', checkIfLoggedIn);
 
 }
 
 
-function addToCart(jewelryId) {
-    // + læg i cart
-    // TODO noget user-logik
+function checkIfLoggedIn(jewelryId) {
+
+    fetch("/users/loggedIn", {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json; charset=UTF-8', // denne linje siger at dataen som vi sender er en string 
+        'Accept': 'application/json'
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if(data.loggedIn){
+            addToCart();
+        } else {
+            alert("Du skal være logget ind for at kunne tilføje ngoet til din kurv.");
+        }
+    });
+}
+
+function addToCart(){
+    fetch(`/users/${getCookie('userId')}/cartItem/${jewelryId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json; charset=UTF-8', // denne linje siger at dataen som vi sender er en string 
+        }
+    })
+    .then(response => {
+        if(response.ok){
+            alert("Tilføjet til kurven");
+        } else {
+            throw new Error(`${response.status}: ${response.statusText}`);
+        }
+    })
+    .catch(error => console.log(error));
 }

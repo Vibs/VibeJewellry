@@ -23,8 +23,8 @@ app.use(contactRouter.router);
 import jewelryRouter from "./routers/jewelry.js";
 app.use(jewelryRouter.router);
 
-import cartRouter from "./routers/cart.js";
-app.use(cartRouter.router);
+import cartItemRouter from "./routers/cartItem.js";
+app.use(cartItemRouter.router);
 
 import userRouter from "./routers/user.js";
 app.use(userRouter.router);
@@ -56,10 +56,22 @@ const frontpage = createPage("frontpage/frontpage.html", {
     styling: [{ href: "/views/frontpage/frontpage.css" }]
 });
 
+const preLogInCartPage = createPage("cart/prelogin-cart.html", {
+    title: "Indkøbskurv",
+});
+
+
+
 const contactPage = createPage("contact/contact.html", {
     title: "Kontakt",
     script: [{ src: "/views/contact/contact.js" }],
     styling: [{ href: "/views/contact/contact.css"}]
+});
+
+const cartPage = createPage("cart/cart.html", {
+    title: "Indkøbskurv",
+    script: [{ src: "/views/cart/cart.js" }],
+    styling: [{ href: "/views/cart/cart.css"}]
 });
 
 const allJewelryPage = createPage("jewelry/jewelry.html", {
@@ -91,8 +103,16 @@ app.get("/users/create", (req, res) => {
     res.send(createUserPage);
 })
 
+app.get("/users/:userId/cart", authenticateToken, (req, res) => {
+    res.send(cartPage);
+});
+
 app.get("/contact", (req, res) => {
     res.send(contactPage);
+})
+
+app.get("/cart", (req, res) => {
+    res.send(preLogInCartPage);
 })
 
 app.get("/jewelry", (req, res) => {
