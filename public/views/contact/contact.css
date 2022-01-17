@@ -5,7 +5,7 @@ input {
 }
 
 /*  https://codepen.io/Tixie/pen/cAxIv */
-button[type=submit]{
+.contact-send-btn {
     margin-left: 0.5em;
 
     height: 2em;
@@ -25,7 +25,7 @@ button[type=submit]{
     cursor: pointer;
     transition: all 0.3s ease 0s;
 }
-button[type="submit"]:hover {
+.contact-send-btn:hover {
     color: #fff;
     background-color: #5b84b1;
     border-color: #5b84b1;
@@ -34,7 +34,7 @@ button[type="submit"]:hover {
     -ms-transition: all 0.3s ease;
     transition: all 0.3s ease;
 }
-button[type="submit"]:focus {
+.contact-send-btn:focus {
     background-position: 2em -4em;
     -webkit-transition: all 0.3s ease;
     -ms-transition: all 0.3s ease;
