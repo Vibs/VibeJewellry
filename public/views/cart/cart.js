@@ -1,7 +1,7 @@
 const headline = document.getElementById('headline');
 const jewelryWrapper = document.getElementById("jewelry-wrapper");
 
-let userId = getCookie('userId');
+const userId = getCookie('userId');
 
 fetch(`/users/${userId}/cartItems`, {
     method: 'GET', 

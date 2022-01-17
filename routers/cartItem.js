@@ -2,7 +2,7 @@ import express from "express";
 import { connection } from "../database/connectSqlite.js";
 const router = express.Router();
 
-import authRouter from "./userAuth.js";
+import authRouter from "./auth/userAuth.js";
 const authenticateToken = authRouter.authenticateToken;
 
 router.post("/users/:userId/cartItem/:jewelryId", authenticateToken, async (req, res) => {

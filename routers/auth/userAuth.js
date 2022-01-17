@@ -16,7 +16,7 @@ router.use(cors());
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-import { connection } from "../database/connectSqlite.js";
+import { connection } from "../../database/connectSqlite.js";
 
 // callbacken er async fordi jeg bruger bcrypt, som er et async library
 router.post("/users/login", async (req, res) => {

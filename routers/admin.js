@@ -1,7 +1,7 @@
 import express from "express";
 const router = express.Router();
 
-import authRouter from "./adminAuth.js";
+import authRouter from "./auth/adminAuth.js";
 
 // forberedte sider
 import { adminPages } from "../render.js";

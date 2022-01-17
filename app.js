@@ -8,9 +8,9 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 //------- ROUTES
-import adminAuthRouter from "./routers/adminAuth.js";
+import adminAuthRouter from "./routers/auth/adminAuth.js";
 app.use(adminAuthRouter.router);
-import userAuthRouter from "./routers/userAuth.js";
+import userAuthRouter from "./routers/auth/userAuth.js";
 app.use(userAuthRouter.router);
 import contactRouter from "./routers/contact.js";
 app.use(contactRouter.router);
