@@ -1,10 +1,10 @@
 {
   "type": "module",
   "scripts": {
-    "create-admins-db": "node ./database/createAdminsTable.js",
-    "create-jewelry-db": "node ./database/createJewelryTable.js",
-    "create-users-db": "node ./database/createUsersTable.js",
-    "create-messages-db": "node ./database/createMessagesTable.js",
+    "create-admins-table": "node ./database/createAdminsTable.js",
+    "create-jewelry-table": "node ./database/createJewelryTable.js",
+    "create-users-table": "node ./database/createUsersTable.js",
+    "create-messages-table": "node ./database/createMessagesTable.js",
     "start": "nodemon.cmd app.js"
   },
   "dependencies": {

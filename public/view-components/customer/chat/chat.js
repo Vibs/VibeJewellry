@@ -38,11 +38,8 @@ function sendMessage(){
 
 console.log("front:", socket);
 
-socket.on("message-sent-successfully"), (message) => {
-    console.log("Hej fra succesfull");
-    // vis på side
-    showOwnMessage(message);
-}
+socket.on("message-sent-successfully", showOwnMessage);
+
 
  // lytter til svar fra admin
 socket.on("send-admin-message", showReceivedMessage);
@@ -52,9 +49,9 @@ function showOwnMessage(ownMessage) {
     const newMessage = document.createElement('div');
     newMessage.classList.add("message-wrapper");
 
-    newMessage.innerHTML(`
+    newMessage.innerHTML = `
         <div class="own-message message">${escapeHTML(ownMessage)}</div>
-    `);
+    `;
 
     convoWrapper.appendChild(newMessage);
 }

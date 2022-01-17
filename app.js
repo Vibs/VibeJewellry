@@ -78,17 +78,19 @@ socket.broadcast.emit == broadcaster den ud til alle andre sockets - men ikke ti
 socker.emit == sneder kun tilbage til DEN socket
 */
 
+
 // connection (disconnect) er et default-events - ellers definerer man sine egne events
 io.on("connection", (socket) => {
     console.log(socket.id);
 
     //-------- customer
     socket.on("send-customer-message", async (message) => {
+
         // gem i db
         const messageIsSaved = await messageFunctions.saveUserMessage(socket.id, message);
 
         if(messageIsSaved) {
-            //socket.broadcast.emit("send-message-to-admin", socket.id, message);
+            socket.broadcast.emit("send-message-to-admin", socket.id, message);
             socket.emit("message-sent-successfully", message);
         }
     });
@@ -99,6 +101,7 @@ io.on("connection", (socket) => {
 
     //socket.on("disconnect", () => console.log("Goodbye!!"));
 });
+
 
 
 
