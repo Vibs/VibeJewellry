@@ -12,7 +12,7 @@ function logIn() {
             password: password,
         }
 
-        fetch("/users/login", {
+        fetch("/api/users/login", {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json; charset=UTF-8', // denne linje siger at dataen som vi sender er en string 
@@ -25,7 +25,11 @@ function logIn() {
                 const userId = getCookie("userId");
 
                 window.location.replace(`/users/${userId}/profile`);
-            } else {
+            } else if(response.status == 400) {
+                alert("Der findes ikke en bruger med denne email.");
+                throw new Error(`${response.status} ${response.statusText}`);
+            } else if(response.status == 403) {
+                alert("Forkert adgangskode.");
                 throw new Error(`${response.status} ${response.statusText}`);
             }
         })

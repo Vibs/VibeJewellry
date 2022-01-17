@@ -23,7 +23,11 @@ function logIn() {
         .then(response => {
             if (response.ok) {
                 window.location.replace("/admin");
-            } else {
+            } else if(response.status == 400) {
+                alert("Der findes ikke en bruger med denne email.");
+                throw new Error(`${response.status} ${response.statusText}`);
+            } else if(response.status == 403) {
+                alert("Forkert adgangskode.");
                 throw new Error(`${response.status} ${response.statusText}`);
             }
         })
