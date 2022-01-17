@@ -2,6 +2,8 @@ import fs from "fs";
 
 const customerNav = fs.readFileSync("./public/view-components/customer/navbar/navbar.html", "utf8");
 const customerFooter = fs.readFileSync("./public/view-components/customer/footer/footer.html", "utf8");
+const customerChat = fs.readFileSync("./public/view-components/customer/chat/chat.html", "utf8");
+
 
 const adminNav = fs.readFileSync("./public/view-components/admin/navbar/navbar.html", "utf8");
 const adminFooter = fs.readFileSync("./public/view-components/admin/footer/footer.html", "utf8");
@@ -95,7 +97,7 @@ function createCustomerPage(path, options) {
 
     path ? mainPage = fs.readFileSync(`./public/views/${path}`, "utf8") : mainPage = ""
 
-    return (nav + mainPage + footer)
+    return (nav + customerChat + mainPage + footer)
         .replace("%%DOCUMENT_TITLE%%", options?.title || "VibeJewelry")
         .replace("%%SCRIPT%%", options?.script ? options.script.map(createScript) : "")
         .replace("%%STYLING%%", options?.styling ? options.styling.map(createStylingLink) : "")//`<link rel="stylesheet" href="/views/${options.styling}"></script>` : "")
