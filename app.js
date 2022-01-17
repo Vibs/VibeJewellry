@@ -95,6 +95,20 @@ io.on("connection", (socket) => {
         }
     });
 
+    socket.on("send-admin-message", async (message, customerSocketId) => {
+
+         // gem i db
+         const messageIsSaved = await messageFunctions.saveAdminMessage(customerSocketId, message);
+
+         if(messageIsSaved) {
+             socket.broadcast.emit("send-message-to-admin", socket.id, message);
+             socket.emit("message-sent-successfully", message);
+         }
+
+
+
+    })
+
    
 
 
