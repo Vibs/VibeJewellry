@@ -5,7 +5,7 @@ const loggedInCartLink = document.getElementById('loggedInCartLink');
 
 const logOut = document.getElementById('logOut');
 
-fetch("/users/loggedIn", {
+fetch("/api/users/loggedIn", {
     method: 'POST',
     headers: {
     'Content-Type': 'application/json; charset=UTF-8', // denne linje siger at dataen som vi sender er en string 
@@ -19,7 +19,7 @@ fetch("/users/loggedIn", {
 logOut.addEventListener("click", fetchLogOut);
 
 function fetchLogOut() {
-    fetch("/users/logout", {
+    fetch("/api/users/logout", {
         method: 'DELETE'
     })
     .then(response => {

@@ -5,7 +5,7 @@ import bcrypt from "bcrypt";
 import { connection } from "../database/connectSqlite.js";
 
 
-router.post("/users", async (req, res) => {
+router.post("/api/users", async (req, res) => {
     const userFromBody = req.body;
 
     if(userFromBody) {

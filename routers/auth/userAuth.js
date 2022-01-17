@@ -19,7 +19,7 @@ import jwt from "jsonwebtoken";
 import { connection } from "../../database/connectSqlite.js";
 
 // callbacken er async fordi jeg bruger bcrypt, som er et async library
-router.post("/users/login", async (req, res) => {
+router.post("/api/users/login", async (req, res) => {
     // authenticate user
     //https://www.youtube.com/watch?v=Ud5xKCYQTjM
     const userFromBody = req.body;
@@ -27,7 +27,7 @@ router.post("/users/login", async (req, res) => {
     const userFromDb = await connection.all("SELECT * FROM users WHERE email = ?", userFromBody.email);
 
     if(userFromDb.length < 1){
-        return res.status(400).send('Cannot find user');
+        return res.sendStatus(400); // cannot find user
     }
 
     try{
@@ -63,7 +63,7 @@ router.post("/users/login", async (req, res) => {
             res.sendStatus(403);// forbidden
         }
     } catch {
-        res.sendStatus(500);
+        res.sendStatus(500); // server error
     }
 });
 
@@ -160,7 +160,7 @@ const tryWithRefreshToken = async (req, res, next) => {
     });
 }
 
-router.post("/users/loggedIn", async (req, res) => {
+router.post("/api/users/loggedIn", async (req, res) => {
     const refreshToken = req.cookies.refreshToken;
 
     if(refreshToken == null) {
@@ -187,53 +187,7 @@ router.post("/users/loggedIn", async (req, res) => {
     });
 });
 
-/*
-router.post("/users/loggedIn", (req, res) => {
-    const accessToken = req.cookies.accessToken;
-
-    if(accessToken == null){
-        return res.json({ loggedIn: false });
-    }
-
-    // user == det objekt som vi i get(/login) seriliserede i jwt.sign()
-    jwt.verify(accessToken, process.env.USER_ACCESS_TOKEN_SECRET, async (error, user) => {
-        if(error){ // token'en er ikke valid
-           
-            // se om der er valid refresh
-            const refreshToken = req.cookies.refreshToken;
-            
-            if(refreshToken == null) {
-                return res.json({ loggedIn: false });
-            }
-        
-             // leder efter refreshToken'en i db
-            const refreshTokensFromDb = await connection.all(
-                "SELECT * FROM user_refresh_tokens WHERE token = ?", 
-                [refreshToken]
-            );
-        
-            // hvis den IKKE er der
-            if(refreshTokensFromDb.length < 1){
-                return res.json({ loggedIn: false });
-            }
-        
-            // hvis den blev fundet i db - bekræft at refreshTokenet er valid
-            jwt.verify(refreshToken, process.env.USER_REFRESH_TOKEN_SECRET, (error, user) => {
-                if(error) {
-                    return res.json({ loggedIn: false });
-                }
-                return res.json({ loggedIn: true }); // der er valid refreshToken
-            });
-        } else {
-            return res.json({ loggedIn: true }); // der er valid accessToken
-        }
-    });
-
-});
-*/
-
-
-router.delete("/users/logout", async (req, res) => {
+router.delete("/api/users/logout", async (req, res) => {
     await connection.run("DELETE FROM user_refresh_tokens WHERE token = ?", [req.cookies.refreshToken]);
 
     const tokenFromDb = await connection.all("SELECT * FROM user_refresh_tokens WHERE token = ?", [req.cookies.refreshToken]);

@@ -19,7 +19,7 @@ function createUser() {
                 password: pass
             }
 
-            fetch("/users", {
+            fetch("/api/users", {
                 method: 'POST',
                 headers: {
                 'Content-Type': 'application/json; charset=UTF-8' // denne linje siger at dataen som vi sender er en string 

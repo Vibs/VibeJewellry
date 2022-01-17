@@ -3,7 +3,7 @@ const jewelryWrapper = document.getElementById("jewelry-wrapper");
 
 const userId = getCookie('userId');
 
-fetch(`/users/${userId}/cartItems`, {
+fetch(`/api/users/${userId}/cartItems`, {
     method: 'GET', 
     headers: {
         'Accept': 'application/json'

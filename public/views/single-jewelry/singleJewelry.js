@@ -58,7 +58,7 @@ function createSingleJewelryView(jewelry){
 
 function checkIfLoggedIn(jewelryId) {
 
-    fetch("/users/loggedIn", {
+    fetch("/api/users/loggedIn", {
         method: 'POST',
         headers: {
         'Content-Type': 'application/json; charset=UTF-8', // denne linje siger at dataen som vi sender er en string 
@@ -76,7 +76,7 @@ function checkIfLoggedIn(jewelryId) {
 }
 
 function addToCart(){
-    fetch(`/users/${getCookie('userId')}/cartItem/${jewelryId}`, {
+    fetch(`/api/users/${getCookie('userId')}/cartItem/${jewelryId}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json; charset=UTF-8', // denne linje siger at dataen som vi sender er en string 
