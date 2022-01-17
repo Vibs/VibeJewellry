@@ -1,14 +1,37 @@
-<button id="openButton" class="open-button">Chat</button> <!--onclick="openForm()"-->
+<button id="openButton">Chat</button> <!--onclick="openForm()"-->
 
 <div class="chat-popup" id="myForm">
   <form action="/action_page.php" class="form-container">
-    <h1>Chat</h1>
+    <h4>Chat</h4>
 
-    <label for="msg"><b>Message</b></label>
-    <textarea placeholder="Type message.." name="msg" required></textarea>
+    <div id="convoWrapper">
+        <div class="message-wrapper">
+            <div class="customer-message message">Hej</div>
+        </div>
+        <div class="message-wrapper">
+            <div class="support-message message">Hej</div>
+        </div>
+        <div class="message-wrapper">
+            <div class="support-message message">Hej</div>
+        </div>
+        <div class="message-wrapper">
+            <div class="support-message message">Hej med dig du ser da godt ud i dag wowowowowow</div>
+        </div>
+        <div class="message-wrapper">
+            <div class="support-message message">Hej</div>
+        </div>
+        <div class="message-wrapper">
+            <div class="support-message message">Hej</div>
+        </div>
+
+
+
+    </div>
+
+    <textarea placeholder="Skriv besked.." name="msg" required></textarea>
 
     <button type="submit" class="btn">Send</button>
-    <button type="button" id="closeButton" class="btn cancel" onclick="closeForm()">Close</button>
+    <button type="button" id="closeButton" class="btn" onclick="closeForm()">Close</button>
   </form>
 </div>
 

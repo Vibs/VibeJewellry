@@ -2,7 +2,8 @@ body {font-family: Arial, Helvetica, sans-serif;}
 * {box-sizing: border-box;}
 
 /* Button used to open the chat form - fixed at the bottom of the page */
-.open-button {
+/*
+#openButton {
   background-color: #555;
   color: white;
   padding: 16px 20px;
@@ -14,13 +15,27 @@ body {font-family: Arial, Helvetica, sans-serif;}
   right: 28px;
   width: 280px;
 }
+*/
+
+#openButton {
+  z-index: 1;
+  background-color: #9f9f9f;
+  color: black;
+  padding: 15px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+}
 
 /* The popup chat - hidden by default */
 .chat-popup {
   display: none;
   position: fixed;
   bottom: 0;
-  right: 15px;
+  right: 0;
   border: 3px solid #f1f1f1;
   z-index: 9;
 }
@@ -36,11 +51,14 @@ body {font-family: Arial, Helvetica, sans-serif;}
 .form-container textarea {
   width: 100%;
   padding: 15px;
-  margin: 5px 0 22px 0;
   border: none;
   background: #f1f1f1;
   resize: none;
-  min-height: 200px;
+  font-size: 12px;
+  color: black;
+  font-weight: 600;
+  min-height: 50px;
+  margin: 16px 0;
 }
 
 /* When the textarea gets focus, do something */
@@ -51,22 +69,57 @@ body {font-family: Arial, Helvetica, sans-serif;}
 
 /* Set a style for the submit/send button */
 .form-container .btn {
-  background-color: #04AA6D;
-  color: white;
-  padding: 16px 20px;
+  background-color: rgb(168, 211, 168);
+  color: black;
+  font-weight: bold;
+  padding: 5px 20px;
   border: none;
   cursor: pointer;
   width: 100%;
   margin-bottom:10px;
   opacity: 0.8;
+  border-radius: 2em;
 }
 
 /* Add a red background color to the cancel button */
-.form-container .cancel {
-  background-color: red;
+.form-container #closeButton {
+  background-color: rgb(238, 154, 154);
 }
 
 /* Add some hover effects to buttons */
-.form-container .btn:hover, .open-button:hover {
+.form-container .btn:hover, #openButton:hover {
   opacity: 1;
+}
+
+#convoWrapper {
+  min-height: 200px;
+  overflow-y: auto;
+  max-height: 200px;
+  border: 1px solid lightgrey;
+  padding: 5px;
+}
+
+.message-wrapper {
+  display: inline-block;
+  width: 100%;
+}
+
+
+.message {
+  max-width: 80%;
+  position: relative;
+  border-radius: 2em;
+  font-size: 12px;
+  min-width: 30%;
+  padding: 10px
+}
+
+.support-message {
+  float: left;
+  background-color: lightgrey;
+}
+
+.customer-message {
+  float: right;
+  background-color: rgb(135, 192, 245);
 }
