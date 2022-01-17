@@ -7,6 +7,9 @@ app.use(express.urlencoded({extended: true})); // supports data from forms - nee
 import dotenv from 'dotenv';
 dotenv.config();
 
+
+
+
 //------- ROUTES
 import adminAuthRouter from "./routers/auth/adminAuth.js";
 app.use(adminAuthRouter.router);
@@ -22,6 +25,7 @@ import userRouter from "./routers/user.js";
 app.use(userRouter.router);
 import adminRouter from "./routers/admin.js";
 app.use(adminRouter.router);
+
 
 // forberedte sider
 import { customerPages } from "./render.js";
@@ -58,10 +62,48 @@ app.get("/jewelry/:id", (req, res) => {
     res.send(customerPages.singleJewelryPage.replace("%%ID%%", req.params.id));
 });
 
+//------- SOCKET for chat
+// funktioner som bruges til at lægge i db
+import { messageFunctions } from "./message.js";
+
+import http from 'http';
+const server = http.createServer(app); // app bliver wrappet til en http-server-instans
+
+import { Server } from "socket.io";
+const io = new Server(server);
+
+/*
+io.emit == sender til ALLE sockets
+socket.broadcast.emit == broadcaster den ud til alle andre sockets - men ikke til den selv
+socker.emit == sneder kun tilbage til DEN socket
+*/
+
+// connection (disconnect) er et default-events - ellers definerer man sine egne events
+io.on("connection", (socket) => {
+    console.log(socket.id);
+
+    //-------- customer
+    socket.on("send-customer-message", async (message) => {
+        // gem i db
+        const messageIsSaved = await messageFunctions.saveUserMessage(socket.id, message);
+
+        if(messageIsSaved) {
+            //socket.broadcast.emit("send-message-to-admin", socket.id, message);
+            socket.emit("message-sent-successfully", message);
+        }
+    });
+
+   
+
+
+
+    //socket.on("disconnect", () => console.log("Goodbye!!"));
+});
+
 
 
 
 const PORT = 8080;
-app.listen(PORT, (error) => {
+server.listen(PORT, (error) => {
     error ? console.log("Error starting server:", error) : console.log("Starting server on port", PORT);
 });

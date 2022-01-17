@@ -114,12 +114,12 @@ body {font-family: Arial, Helvetica, sans-serif;}
   padding: 10px
 }
 
-.support-message {
+.received-message {
   float: left;
   background-color: lightgrey;
 }
 
-.customer-message {
+.own-message {
   float: right;
   background-color: rgb(135, 192, 245);
 }

@@ -131,5 +131,5 @@ function createScript(script) {
 }
 
 export {
-    createAdminPage, customerPages, adminPages
+    customerPages, adminPages
 };

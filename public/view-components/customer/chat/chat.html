@@ -1,42 +1,50 @@
 <button id="openButton">Chat</button> <!--onclick="openForm()"-->
 
 <div class="chat-popup" id="myForm">
-  <form action="/action_page.php" class="form-container">
-    <h4>Chat</h4>
+  <div class="form-container">
+        <h4>Chat</h4>
 
-    <div id="convoWrapper">
-        <div class="message-wrapper">
-            <div class="customer-message message">Hej</div>
-        </div>
-        <div class="message-wrapper">
-            <div class="support-message message">Hej</div>
-        </div>
-        <div class="message-wrapper">
-            <div class="support-message message">Hej</div>
-        </div>
-        <div class="message-wrapper">
-            <div class="support-message message">Hej med dig du ser da godt ud i dag wowowowowow</div>
-        </div>
-        <div class="message-wrapper">
-            <div class="support-message message">Hej</div>
-        </div>
-        <div class="message-wrapper">
-            <div class="support-message message">Hej</div>
+        <div id="convoWrapper">
+            <!--
+            <div class="message-wrapper">
+                <div class="own-message message">Hej</div>
+            </div>
+            <div class="message-wrapper">
+                <div class="received-message message">Hej</div>
+            </div>
+            <div class="message-wrapper">
+                <div class="received-message message">Hej</div>
+            </div>
+            <div class="message-wrapper">
+                <div class="received-message message">Hej med dig du ser da godt ud i dag wowowowowow</div>
+            </div>
+            <div class="message-wrapper">
+                <div class="received-message message">Hej</div>
+            </div>
+            <div class="message-wrapper">
+                <div class="received-message message">Hej</div>
+            </div>
+            -->
         </div>
 
+        <textarea id="message" placeholder="Skriv besked.." name="message" required></textarea>
 
-
+        <button id="sendButton" class="btn">Send</button>
+        <button id="closeButton" type="button" class="btn">Close</button>
     </div>
-
-    <textarea placeholder="Skriv besked.." name="msg" required></textarea>
-
-    <button type="submit" class="btn">Send</button>
-    <button type="button" id="closeButton" class="btn" onclick="closeForm()">Close</button>
-  </form>
 </div>
 
+<!--Script som exposer en client socket
+    io registreres som global var
+    derfor kan vi bruge den i chat.js-->
+<script src="/socket.io/socket.io.js">
+    /*
+    const script = document.createElement('script');
+    script.src = "/view-components/customer/chat/chat.js";
 
+ 
+    document.onload(document.appendChild(script));
+    */
 
-
-
+</script>
 <script src="/view-components/customer/chat/chat.js"></script>
