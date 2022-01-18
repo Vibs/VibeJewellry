@@ -199,7 +199,7 @@ router.delete("/api/users/logout", async (req, res) => {
 })
 
 function generateAccessToken(user){
-    return jwt.sign(user, process.env.USER_ACCESS_TOKEN_SECRET, {expiresIn: '10s'});
+    return jwt.sign(user, process.env.USER_ACCESS_TOKEN_SECRET, {expiresIn: '5s'});
 }
 
 function generateRefreshToken(user) {
