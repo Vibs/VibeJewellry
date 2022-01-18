@@ -1,7 +1,4 @@
-console.log("Hej fra chat.js");
-
 const socket = io();
-console.log(socket);
 const messageInput = document.getElementById('message');
 const convoWrapper = document.getElementById('convoWrapper');
 
@@ -23,29 +20,30 @@ function closeForm() {
 
 
 function sendMessage(){
-    //TODO her kunne man evt. tilføje et tjek på om brugeren er logget ind
-    // hvis brugeren er logget ind, kan man gemme chatten
+    //TODO her kunne man evt. tilføje et tjek på om brugeren er logget ind, så man kan gemme chatten
     const message = messageInput.value;
 
     if(message) {
-        socket.emit("send-customer-message", message)
+        socket.emit("send-customer-message", message) // send til server
     }
-    console.log("front: ", socket.id);
-
-    // send til server
-   
 }
-
-console.log("front:", socket);
 
 socket.on("message-sent-successfully", showOwnMessage);
 
+socket.on("message-not-sent", (message) => {
+    alert(message);
+});
 
  // lytter til svar fra admin
-socket.on("send-admin-message", showReceivedMessage);
-
+socket.on("send-message-to-customer", (message, socketId) => {
+    if(socketId == socket.id) {
+        showReceivedMessage(message, socketId);
+    }
+});
 
 function showOwnMessage(ownMessage) {
+    messageInput.value = "";
+
     const newMessage = document.createElement('div');
     newMessage.classList.add("message-wrapper");
 
@@ -55,16 +53,14 @@ function showOwnMessage(ownMessage) {
 
     convoWrapper.appendChild(newMessage);
 }
-   
-
-socket.on("message-not-sent", (message) => {
-    alert(message);
-});
-
-
-
-
 
 function showReceivedMessage(receivedMessage) {
+    const newMessage = document.createElement('div');
+    newMessage.classList.add("message-wrapper");
 
+    newMessage.innerHTML = `
+        <div class="received-message message">${escapeHTML(receivedMessage)}</div>
+    `;
+
+    convoWrapper.appendChild(newMessage);
 }

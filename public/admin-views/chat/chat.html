@@ -1,27 +1,27 @@
-<button id="openButton">Chat</button> <!--onclick="openForm()"-->
+<div id="chatsWrapper" class="row align-vert-hor"></div>
 
-<div class="chat-popup" id="myForm">
+<!--
+<div class="chat">
   <div class="form-container">
         <h4>Chat</h4>
+        <div class="convoWrapper">
 
-        <div id="convoWrapper">
-            <!--
             <div class="message-wrapper">
                 <div class="own-message message">Hej</div>
             </div>
             <div class="message-wrapper">
                 <div class="received-message message">Hej</div>
-            </div> -->
-        </div>
+            </div>
 
-        <textarea id="message" placeholder="Skriv besked.."></textarea>
-        <button id="sendButton" class="btn">Send</button>
-        <button id="closeButton" type="button" class="btn">Luk</button>
+        </div>
+        <textarea class="message" placeholder="Skriv besked.."></textarea>
+        <button class="sendButton btn">Send</button>
+        <button class="closeButton btn" type="button">Luk</button>
     </div>
 </div>
+-->
 
 <!--Script som exposer en client socket
     io registreres som global var
     derfor kan vi bruge den i chat.js-->
 <script src="/socket.io/socket.io.js"></script>
-<script src="/view-components/customer/chat/chat.js"></script>

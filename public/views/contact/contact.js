@@ -47,24 +47,5 @@ function sendContactMessage() {
 }
 
 
-/*
-fetch("/api/projects")
-.then(response => response.json())
-.then(result => {
-    //todo group the projects by category
-    // fx metoden reduce()
-    console.log(result);
-
-    const doc = document.getElementById("projects-wrapper");
-
-    // hvis hvert projekt kronologisk (efter index) på siden
-    //! siger .projects fordi result = objektet med en key som hedder projects
-    result.projects.forEach(createProject, doc);
-
-});
-
-*/
-
-
 
 

@@ -17,9 +17,10 @@
 
 
 #nav-user-links-wrapper {
+    right: 10px;
+    top: 10px;
     height: 20px;
     position: absolute;
-    right: 5%;
     width: 200px;
 }
 
@@ -83,6 +84,7 @@ a.nav-link:active {
 
 
 #return-btn {
+    float: right;
     font-size: 15px;
     border-radius: 2em;
     border: 1px solid lightgrey;

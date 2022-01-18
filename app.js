@@ -7,9 +7,6 @@ app.use(express.urlencoded({extended: true})); // supports data from forms - nee
 import dotenv from 'dotenv';
 dotenv.config();
 
-
-
-
 //------- ROUTES
 import adminAuthRouter from "./routers/auth/adminAuth.js";
 app.use(adminAuthRouter.router);
@@ -19,13 +16,14 @@ import contactRouter from "./routers/contact.js";
 app.use(contactRouter.router);
 import jewelryRouter from "./routers/jewelry.js";
 app.use(jewelryRouter.router);
-import cartItemRouter from "./routers/cartItem.js";
+import cartItemRouter from "./routers/cartItems.js";
 app.use(cartItemRouter.router);
-import userRouter from "./routers/user.js";
+import userRouter from "./routers/users.js";
 app.use(userRouter.router);
 import adminRouter from "./routers/admin.js";
 app.use(adminRouter.router);
-
+import { messageRouter } from "./routers/messages.js";
+app.use(messageRouter);
 
 // forberedte sider
 import { customerPages } from "./render.js";
@@ -64,7 +62,7 @@ app.get("/jewelry/:id", (req, res) => {
 
 //------- SOCKET for chat
 // funktioner som bruges til at lægge i db
-import { messageFunctions } from "./message.js";
+import { messageFunctions } from "./routers/messages.js";
 
 import http from 'http';
 const server = http.createServer(app); // app bliver wrappet til en http-server-instans
@@ -81,37 +79,33 @@ socker.emit == sneder kun tilbage til DEN socket
 
 // connection (disconnect) er et default-events - ellers definerer man sine egne events
 io.on("connection", (socket) => {
-    console.log(socket.id);
-
     //-------- customer
     socket.on("send-customer-message", async (message) => {
 
         // gem i db
-        const messageIsSaved = await messageFunctions.saveUserMessage(socket.id, message);
+        const messageIsSaved = await messageFunctions.saveUserMessage(message, socket.id);
 
         if(messageIsSaved) {
-            socket.broadcast.emit("send-message-to-admin", socket.id, message);
+            socket.broadcast.emit("send-message-to-admin", message, socket.id);
             socket.emit("message-sent-successfully", message);
+        } else {
+            socket.emit("message-not-sent", "Beskeden blev ikke sendt");
         }
     });
 
-    socket.on("send-admin-message", async (message, customerSocketId) => {
+    //------- admin
+    socket.on("send-message-to-user", async (message, socketId) => {
+        // gem i db
+        const messageIsSaved = await messageFunctions.saveAdminMessage(socketId, message); 
 
-         // gem i db
-         const messageIsSaved = await messageFunctions.saveAdminMessage(customerSocketId, message);
+        if(messageIsSaved) {
+            socket.broadcast.emit("send-message-to-customer", message, socketId);
+            socket.emit("admin-message-sent-successfully", message, socketId);
+        } else {
+            socket.emit("message-not-sent", "Beskeden blev ikke sendt");
+        }
 
-         if(messageIsSaved) {
-             socket.broadcast.emit("send-message-to-admin", socket.id, message);
-             socket.emit("message-sent-successfully", message);
-         }
-
-
-
-    })
-
-   
-
-
+    });
 
     //socket.on("disconnect", () => console.log("Goodbye!!"));
 });

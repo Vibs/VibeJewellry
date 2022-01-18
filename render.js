@@ -56,37 +56,44 @@ const adminPages = {
         excludeNavbar: true,
         title: "Login",
         styling: [{ href: "/admin-views/login/login.css"}, 
-        {href: "/admin-views/global-admin.css"}],
+        { href: "/admin-views/global-admin.css" }],
         script: [{ src: "/admin-views/login/login.js"}]
     }),
     frontpage: createAdminPage("frontpage/frontpage.html", {
         admin: true,
         title: "Alle smykker",
         styling: [{ href: "/admin-views/frontpage/frontpage.css"}, 
-        {href: "/admin-views/global-admin.css"}],
+        { href: "/admin-views/global-admin.css" }],
         script: [{ src: "/admin-views/frontpage/frontpage.js"}]
     }),
     create:createAdminPage("create-jewelry/create-jewelry.html", {
         admin: true,
         title: "Opret",
         styling: [{ href: "/admin-views/create-jewelry/create-jewelry.css"}, 
-        {href: "/admin-views/global-admin.css"}],
+        { href: "/admin-views/global-admin.css" }],
         script: [{ src: "/admin-views/create-jewelry/create-jewelry.js"}]
     }),
     editPage:createAdminPage("edit-jewelry/edit-jewelry.html", {
         admin: true,
         title: "Rediger",
         styling: [{ href: "/admin-views/edit-jewelry/edit-jewelry.css"}, 
-        {href: "/admin-views/global-admin.css"}],
+        { href: "/admin-views/global-admin.css" }],
         script: [{ src: "/admin-views/edit-jewelry/edit-jewelry.js"}],
     }),
     deletePage: createAdminPage("delete-jewelry/delete-jewelry.html", {
         admin: true,
         title: "Slet",
         styling: [{ href: "/admin-views/delete-jewelry/delete-jewelry.css"}, 
-        {href: "/admin-views/global-admin.css"}],
+        { href: "/admin-views/global-admin.css" }],
         script: [{ src: "/admin-views/delete-jewelry/delete-jewelry.js"}],
-    })
+    }),
+    chatPage: createAdminPage("chat/chat.html", {
+        admin: true,
+        title: "Chat",
+        styling: [{ href: "/admin-views/chat/chat.css"}, 
+        { href: "/admin-views/global-admin.css" }],
+        script: [{ src: "/admin-views/chat/chat.js"}],
+    }),
 }
 
 

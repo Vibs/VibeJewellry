@@ -13,6 +13,9 @@ router.get("/admin/login", (req, res) => {
 router.get("/admin", authRouter.authenticateToken, (req, res) => {
     res.send(adminPages.frontpage);
 });
+router.get("/admin/chat", authRouter.authenticateToken, (req, res) => {
+    res.send(adminPages.chatPage);
+});
 router.get("/admin/jewelry/create", authRouter.authenticateToken, (req, res) => {
     res.send(adminPages.create);
 });
@@ -22,6 +25,10 @@ router.get("/admin/jewelry/edit/:id", authRouter.authenticateToken, (req, res) =
 router.get("/admin/jewelry/delete/:id", authRouter.authenticateToken, (req, res) => {
     res.send(adminPages.deletePage.replace("%%ID%%", req.params.id));
 });
+
+
+
+
 
 
 export default {

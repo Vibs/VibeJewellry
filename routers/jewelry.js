@@ -1,6 +1,9 @@
 import express from "express";
 const router = express.Router();
+
 import fs from "fs";
+import authRouter from "./auth/adminAuth.js";
+
 
 import { connection } from "../database/connectSqlite.js";
 
@@ -19,7 +22,7 @@ router.get("/api/jewelry/:id", async (req, res) => {
 });
 
 // POST
-router.post("/api/jewelry", async (req, res) => {
+router.post("/api/jewelry", authRouter.authenticateToken, async (req, res) => {
 
     const jewelryToCreate = req.body;
 
@@ -59,7 +62,7 @@ function decodeBase64Image(dataString) {
 
 //------------------------ ADMIN - TODO
 // UPDATE
-router.patch("/api/jewelry/:id", (req, res) => {
+router.patch("/api/jewelry/:id", authRouter.authenticateToken, (req, res) => {
 
     const jewelryToUpdate = req.body;
 
@@ -78,7 +81,7 @@ router.patch("/api/jewelry/:id", (req, res) => {
 
 
 // DELETE
-router.delete("/api/jewelry/:id", async (req, res) => {
+router.delete("/api/jewelry/:id", authRouter.authenticateToken, async (req, res) => {
 
     await connection.run("DELETE FROM jewelry WHERE id = ?", [req.params.id], function(err) {
         if (err) {
