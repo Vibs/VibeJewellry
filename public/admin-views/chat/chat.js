@@ -38,14 +38,14 @@ function createChat(socketId) {
     chat.innerHTML = `
         <div class="form-container">
             <h4>Chat</h4>
-            <label for="msg"><b>${socketId}</b></label>
+            <!--<label for="msg"><b>${socketId}</b></label>-->
 
             <div id="convoWrapper-${socketId}" class="convoWrapper">
             </div>
             <textarea id="message-${socketId}" class="message" name="msg" placeholder="Skriv besked.."></textarea>
 
             <button id="sendButton-${socketId}" class="sendButton btn">Send</button>
-            <button id="closeButton-${socketId}" class="closeButton btn" type="button">Luk</button>
+            <button id="closeButton-${socketId}" class="closeButton btn" type="button">Slet</button>
         </div>
     `;
     // add til dom
