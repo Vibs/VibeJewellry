@@ -11,42 +11,42 @@ const adminFooter = fs.readFileSync("./public/view-components/admin/footer/foote
 const customerPages = {
     loginPage: createCustomerPage("login/login.html", {
         title: "Log ind",
-        script: [{ src: "/views/login/login.js" }],
+        script: [{ src: "/customer-views/login/login.js" }],
     }),
     createUserPage: createCustomerPage("create-user/createUser.html", {
         title: "Log ind",
-        script: [{ src: "/views/create-user/createUser.js" }],
+        script: [{ src: "/customer-views/create-user/createUser.js" }],
     }),
     profilePage: createCustomerPage("profile/profile.html", {
         title: "Profil",
-        script: [{ src: "/views/profile/profile.js" }],
+        script: [{ src: "/customer-views/profile/profile.js" }],
     }),
     frontpage: createCustomerPage("frontpage/frontpage.html", {
         title: "Hjem",
-        styling: [{ href: "/views/frontpage/frontpage.css" }]
+        styling: [{ href: "/customer-views/frontpage/frontpage.css" }]
     }),
     preLogInCartPage: createCustomerPage("cart/prelogin-cart.html", {
         title: "Indkøbskurv",
     }),
     contactPage: createCustomerPage("contact/contact.html", {
         title: "Kontakt",
-        script: [{ src: "/views/contact/contact.js" }],
-        styling: [{ href: "/views/contact/contact.css"}]
+        script: [{ src: "/customer-views/contact/contact.js" }],
+        styling: [{ href: "/customer-views/contact/contact.css"}]
     }),
     cartPage:createCustomerPage("cart/cart.html", {
         title: "Indkøbskurv",
-        script: [{ src: "/views/cart/cart.js" }],
-        styling: [{ href: "/views/cart/cart.css"}]
+        script: [{ src: "/customer-views/cart/cart.js" }],
+        styling: [{ href: "/customer-views/cart/cart.css"}]
     }),
     allJewelryPage: createCustomerPage("jewelry/jewelry.html", {
         title: "Smykker",
-        script: [{ src: "/views/jewelry/jewelry.js" }],
-        styling: [{ href: "/views/jewelry/jewelry.css"}]
+        script: [{ src: "/customer-views/jewelry/jewelry.js" }],
+        styling: [{ href: "/customer-views/jewelry/jewelry.css"}]
     }),
     singleJewelryPage: createCustomerPage("single-jewelry/singleJewelry.html", {
         title: "Smykker",
-        script: [{ src: "/views/single-jewelry/singleJewelry.js"}],
-        styling: [{ href: "/views/single-jewelry/singleJewelry.css" }],
+        script: [{ src: "/customer-views/single-jewelry/singleJewelry.js"}],
+        styling: [{ href: "/customer-views/single-jewelry/singleJewelry.css" }],
     })
 }
 
@@ -102,12 +102,12 @@ function createCustomerPage(path, options) {
     const footer = customerFooter;
     let mainPage;
 
-    path ? mainPage = fs.readFileSync(`./public/views/${path}`, "utf8") : mainPage = ""
+    path ? mainPage = fs.readFileSync(`./public/customer-views/${path}`, "utf8") : mainPage = ""
 
     return (nav + customerChat + mainPage + footer)
         .replace("%%DOCUMENT_TITLE%%", options?.title || "VibeJewelry")
         .replace("%%SCRIPT%%", options?.script ? options.script.map(createScript) : "")
-        .replace("%%STYLING%%", options?.styling ? options.styling.map(createStylingLink) : "")//`<link rel="stylesheet" href="/views/${options.styling}"></script>` : "")
+        .replace("%%STYLING%%", options?.styling ? options.styling.map(createStylingLink) : "")//`<link rel="stylesheet" href="/customer-views/${options.styling}"></script>` : "")
         .replace("%%ACTIVE_NAV_LINK%%", options?.activeNavLink);
 }
 
@@ -123,7 +123,7 @@ function createAdminPage(path, options) {
     return (nav + mainPage + footer)
         .replace("%%DOCUMENT_TITLE%%", options?.title || "VibeJewelry")
         .replace("%%SCRIPT%%", options?.script ? options.script.map(createScript) : "")
-        .replace("%%STYLING%%", options?.styling ? options.styling.map(createStylingLink) : "")//`<link rel="stylesheet" href="/views/${options.styling}"></script>` : "")
+        .replace("%%STYLING%%", options?.styling ? options.styling.map(createStylingLink) : "")//`<link rel="stylesheet" href="/customer-views/${options.styling}"></script>` : "")
         .replace("%%ACTIVE_NAV_LINK%%", options?.activeNavLink);
 }
 

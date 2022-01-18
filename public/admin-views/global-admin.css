@@ -2,3 +2,22 @@
 h1 {
     margin-top: 50px;
 }
+
+
+/* unvisited link */
+a:link {
+    text-decoration: none;
+}
+/* visited link */
+a:visited {
+    text-decoration: none;
+}
+/* mouse over link */
+a:hover {
+    text-decoration: none;
+
+}
+/* selected link */
+a:active {
+    text-decoration: none;
+}
