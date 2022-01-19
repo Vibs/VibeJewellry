@@ -22,7 +22,7 @@
 
 p {
     margin: auto;
-    font-size: 1.2vw;
+    font-size: calc(12px + 0.5vw);
 }
 
 h1 {
@@ -73,7 +73,7 @@ main {
 }
 
 .action {
-    font-size: 1vw;
+    font-size: calc(12px + 0.3vw);
     margin: 0 5px;
     color: black;
 }
