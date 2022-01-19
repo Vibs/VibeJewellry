@@ -1,6 +1,7 @@
 {
   "type": "module",
   "scripts": {
+    "create-all-tables": "node ./database/createAdminsTable.js && node ./database/createJewelryTable.js && node ./database/createUsersTable.js && node ./database/createMessagesTable.js",
     "create-admins-table": "node ./database/createAdminsTable.js",
     "create-jewelry-table": "node ./database/createJewelryTable.js",
     "create-users-table": "node ./database/createUsersTable.js",
