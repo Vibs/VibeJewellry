@@ -17,11 +17,11 @@ function createJewelryView(jewelry){
     }
     </div>
     <p class="name">${escapeHTML(jewelry.name)}</p>
-    <p class="price"> ${escapeHTML(jewelry.price.toString(10))} dkk</p>
-    <p class="stock"> ${escapeHTML(jewelry.stock.toString(10))}</p>
+    <p class="price"> ${escapeHTML(jewelry.price)} dkk</p>
+    <p class="stock"> ${escapeHTML(jewelry.stock)}</p>
     <div class="actions-wrapper">
-        <a href="admin/jewelry/edit/${escapeHTML(jewelry.id.toString(10))}" class="action edit-link">Rediger</a>
-        <a href="admin/jewelry/delete/${escapeHTML(jewelry.id.toString(10))}" class="action delete-link">Slet</a>
+        <a href="admin/jewelry/edit/${escapeHTML(jewelry.id)}" class="action edit-link">Rediger</a>
+        <a href="admin/jewelry/delete/${escapeHTML(jewelry.id)}" class="action delete-link">Slet</a>
     </div>
     `;
 

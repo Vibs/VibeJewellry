@@ -36,7 +36,7 @@ function createSingleJewelryView(jewelry){
         }
 
         <p class="name">${escapeHTML(jewelry.name)}<p>
-        <p class="price"> ${escapeHTML(jewelry.price.toString(10))} dkk</p>
+        <p class="price"> ${escapeHTML(jewelry.price)} dkk</p>
 
         ${jewelry.stock > 0 ?
             `<div id="sold-out" hidden class="button">Udsolgt</div>

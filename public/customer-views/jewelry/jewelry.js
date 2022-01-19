@@ -26,7 +26,7 @@ function createJewelryView(jewelry){
     jewelryDiv.classList.add("col-xs-6", "col-sm-4", "jewelry-col");
 
     jewelryDiv.innerHTML = `
-    <a class="jewelry-link" href="/jewelry/${escapeHTML(jewelry.id.toString(10))}">
+    <a class="jewelry-link" href="/jewelry/${escapeHTML(jewelry.id)}">
 
         <div id="image-wrapper">
         ${escapeHTML(jewelry.image_path) 
@@ -35,7 +35,7 @@ function createJewelryView(jewelry){
         }
         </div>
         <p class="name">${escapeHTML(jewelry.name)}<p>
-        <p class="price"> ${escapeHTML(jewelry.price.toString(10))} dkk</p>
+        <p class="price"> ${escapeHTML(jewelry.price)} dkk</p>
     </a>`;
 
     jewelryWrapper.appendChild(jewelryDiv);
