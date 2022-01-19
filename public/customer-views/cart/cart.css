@@ -1,8 +1,3 @@
-#jewelry-wrapper {
-    width: 50vw;
-}
-
-
 #gold-image {
     width: 100%;
     border-width: 1px 0; /*får border top og bot*/
@@ -20,66 +15,110 @@
     position: absolute;
 }
 
+.row-item-wrapper {
+    width: 33%;
+}
 
+#jewelry-wrapper {
+    margin: auto;
+    width: 80vw;
+
+    border-style: solid;
+    border-color: lightgrey;
+    border-width: 1px 0 0 0;
+}
+
+.align-left {
+    text-align: left;
+}
 
 p {
     margin: auto;
-    font-size: calc(1.5 * 1vw);
+    font-size: calc(12px + 0.5vw);
+}
+
+select {
+    padding: 0 10px;
+    cursor: pointer;
 }
 
 h1 {
-    font-size: calc(3 * 1vw);
+    font-size: 3vw;
 }
 
 main {
-    min-height: calc(100vh - 460px);
-    text-align: center;
-    font-size: 50%;
-    box-sizing: content-box;
-    display: inline-block;
-
+    display: inherit !important;
 }
 
 
 #headline-row {
-    margin-top: 50px;
-    width: 96vw;
+    margin: 50px auto 20px auto;
+    width: 80vw;
     font-weight: 800;
-    margin-left: 2vw;
-}
-
-
-.row-item-wrapper {
-    width: 100%;
-
 }
 
 .jewelry-row {
-    display: block !important;
-    width: 50%;
-    margin-left: 2vw;
+    width: 80vw;
+    height: 160px;
+    padding: 20px 0;
+
+    border-style: solid;
+    border-color: lightgrey;
+    border-width: 0 0 1px 0;
 }
 
 .image {
-    width: 10vw;
+    height: 100%;
     padding: 4px 0;
 }
 
+.actual-image {
+    height: 100%;
+}
+
+.name {
+    width: 40%;
+}
+
+.price {
+    width: 15%;
+}
+
+.stock {
+    width: 20%;
+}
+
+.total {
+    font-weight: bold;
+    position: relative;
+    bottom: -30px;
+}
+
+.sold-out {
+    font-weight: bold;
+    color:rgb(238, 154, 154);
+}
+
+.remove {
+    position: relative;
+    top: -75px;
+    right: -70px;
+    cursor: pointer;
+}
 
 .actions-wrapper {
     display: flex;
-    width: 20vw;
+    width: 20%;
 }
 
 .action {
-    font-size: 1.5vw;
-    font-weight: 800;
+    font-size: calc(12px + 0.3vw);
     margin: 0 5px;
     color: black;
 }
 
 .actions-hidden-headline {
-    width: 20vw;
+    width: 20%;
 }
 
 .edit-link {
