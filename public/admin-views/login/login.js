@@ -24,7 +24,7 @@ function logIn() {
             if (response.ok) {
                 window.location.replace("/admin");
             } else if(response.status == 400) {
-                alert("Der findes ikke en bruger med denne email.");
+                alert("Der findes ikke en admin med dette brugernavn");
                 throw new Error(`${response.status} ${response.statusText}`);
             } else if(response.status == 403) {
                 alert("Forkert adgangskode.");
