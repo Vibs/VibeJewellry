@@ -39,7 +39,7 @@
 
 p {
     margin: auto;
-    font-size: calc(12px + 0.5vw);
+    font-size: 16px;
 }
 
 select {
@@ -93,10 +93,28 @@ main {
     width: 20%;
 }
 
-.total {
+.sub-total {
     font-weight: bold;
     position: relative;
     bottom: -30px;
+    display: flex;
+    margin: auto;
+    width: 70px;
+}
+
+#totalPriceRow {
+    width: 80vw;
+    height: 160px;
+    padding: 20px 0;
+}
+
+#totalPriceWrapper {
+    position: relative;
+    font-weight: bold;
+    margin: auto;
+    width: 70px;
+    display: flex;
+    top: -30px;
 }
 
 .sold-out {

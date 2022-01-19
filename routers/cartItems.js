@@ -44,6 +44,21 @@ router.patch("/api/users/:userId/cartItems/:cartItemId", authenticateToken, (req
     res.sendStatus(200);
 });
 
+router.delete("/api/users/:userId/cartItems/:cartItemId", authenticateToken, async (req, res) => {
+    console.log("Hej fra slet");
+    console.log("cartItemId", req.params.cartItemId);
+    await connection.run("DELETE FROM cartItems WHERE id = ?", req.params.cartItemId);
+
+    const deletedCartItem = await connection.all("SELECT * FROM cartItems WHERE id = ?", req.params.cartItemId);
+
+    console.log("deletedCartItem", deletedCartItem);
+    if(deletedCartItem.length == 0){
+        res.sendStatus(200);
+    } else {
+        res.sendStatus(500);
+    }
+});
+
 
 
 

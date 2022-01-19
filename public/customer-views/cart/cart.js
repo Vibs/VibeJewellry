@@ -1,7 +1,10 @@
+
 const headline = document.getElementById('headline');
 const jewelryWrapper = document.getElementById("jewelry-wrapper");
 
 const userId = getCookie('userId');
+let totalPrice = 0;
+let totalAmountOfCartItems = 0;
 
 fetch(`/api/users/${userId}/cartItems`, {
     method: 'GET', 
@@ -19,17 +22,24 @@ fetch(`/api/users/${userId}/cartItems`, {
 .then(cartItems => {
     const amountOfItems = cartItems.length;
     if(amountOfItems == 0) {
-        headline.innerText = "Der er intet i din indkøbskurv endnu";
-    } /*else {
-        headline.innerText += `(${amountOfItems} varer)`;
-    }*/
-    cartItems.forEach(cartItem => createCartJewelryView(cartItem));
+        updateHeadlineEmptyCart();
+    } else {
+        cartItems.forEach(cartItem => createCartJewelryView(cartItem));
+        updateHeadlineWithAmount();
+
+        addTotalPrice();
+    }
 })
 .catch(error => console.error('Error getting cart-items: ', error));
 
 
 function createCartJewelryView(cartItem){
+    // variabel som skal bruges til at vise totalprice i senere funk
+    totalPrice += cartItem.jewelry.price * cartItem.amount;
+    totalAmountOfCartItems += cartItem.amount;
+
     const jewelryDiv = document.createElement('div');
+    jewelryDiv.id = `jewelryRow-${escapeHTML(cartItem.id)}`;
 
     jewelryDiv.classList.add("jewelry-row", "align-vert-hor");
 
@@ -51,7 +61,10 @@ function createCartJewelryView(cartItem){
         ${ escapeHTML((cartItem.jewelry.stock == 0))
             ? `<p class="sold-out">Udsolgt</p>`
             : `<select id="amountSelect-${escapeHTML(cartItem.id)}"></select>
-            <p id="total-${escapeHTML(cartItem.id)}" class="total"> ${escapeHTML((cartItem.jewelry.price * cartItem.amount))} dkk</p>
+            <div class="sub-total">
+                <p id="subTotal-${escapeHTML(cartItem.id)}">${escapeHTML((cartItem.jewelry.price * cartItem.amount))}</p>
+                <p>dkk</p>
+            </div>
             <i id="remove-${escapeHTML(cartItem.id)}" class="fas fa-trash-alt remove"></i>`
         }
     </div>
@@ -68,6 +81,11 @@ function createCartJewelryView(cartItem){
 
         select.addEventListener('change', (event) => updateCartItemAmount(event, cartItem));
     }
+
+    // tilføj 
+    const removeIcon = document.getElementById(`remove-${cartItem.id}`);
+    removeIcon.addEventListener('click', () => removeCartItem(cartItem));
+
 }
 
 
@@ -95,28 +113,107 @@ function addOptionsToSelect(cartItem) {
 }
 
 function updateCartItemAmount(event, cartItem) {
-    const selectedAmount = event.target.value;
+    const newAmount = event.target.value;
+    const oldAmount = cartItem.amount;
+    const jewelryPrice = cartItem.jewelry.price;
 
-    const newAmount = { 
-        amount: selectedAmount,
+    const amount = { 
+        amount: newAmount,
     }
 
-    fetch(`/api/users/${getCookie('userId')}/cartItems/${cartItem.id}`, {
+    fetch(`/api/users/${userId}/cartItems/${cartItem.id}`, {
         method: "PATCH",
         headers: {
-            'Content-Type': 'application/json; charset=UTF-8'
+            'Content-Type': 'application/json'
         },
-        body: JSON.stringify(newAmount)
+        body: JSON.stringify(amount)
     })
     .then(response => {
         if(response.ok) {
-            const total = document.getElementById(`total-${cartItem.id}`);
-            total.innerText = `${(selectedAmount * cartItem.jewelry.price).toString(10)} dkk`;
+            // opdater cartItem-obj
+            cartItem.amount = newAmount;
+
+            // opdater subTotal
+            const subTotal = document.getElementById(`subTotal-${cartItem.id}`);
+            subTotal.innerText = `${(newAmount * jewelryPrice).toString(10)}`;
+
+            // opdater totalPrice 
+            const amountDif = newAmount - oldAmount;
+            const priceDifference = amountDif * jewelryPrice;
+            updateTotalPrice(priceDifference);
+
+            // opdater antal i headline
+            totalAmountOfCartItems += amountDif;
+            updateHeadlineWithAmount();
         } else {
-            select.value = cartItem.amount; // originalAmount
+            select.value = oldAmount;
             throw new Error("Error in changing amount on cartItem");
         }
     })
-    .catch(error => console.log(error))
+    .catch(error => console.log(error));
 }
 
+function addTotalPrice() {
+    const totalPriceDiv = document.createElement('div');
+    totalPriceDiv.id = "totalPriceRow";
+    totalPriceDiv.classList.add("align-vert-hor");
+
+    totalPriceDiv.innerHTML = `
+    <div class="row-item-wrapper"></div>
+    <div class="row-item-wrapper"></div>
+    <div class="row-item-wrapper">
+        <div id="totalPriceWrapper">
+            <p id="totalPrice">${escapeHTML(totalPrice)}</p>
+            <p>dkk</p>
+        </div>
+    </div>
+    `;
+
+    jewelryWrapper.appendChild(totalPriceDiv);
+}
+
+function updateTotalPrice(priceDifference) {
+    const totalPriceDiv = document.getElementById('totalPrice');
+    const currentPrice = Number(totalPriceDiv.innerText);
+
+    totalPriceDiv.innerText = currentPrice + priceDifference;
+}
+
+function updateHeadlineWithAmount() {
+    headline.innerText = `Din indkøbskurv (${totalAmountOfCartItems} varer)`;
+}
+
+function updateHeadlineEmptyCart() {
+    headline.innerText = "Der er intet i din indkøbskurv endnu";
+}
+
+function removeCartItem(cartItem) {
+    console.log("du har trykket");
+
+    fetch(`/api/users/${userId}/cartItems/${cartItem.id}`, {
+        method: "DELETE"
+    })
+    .then(response => {
+        if(response.ok) {
+            // fjern fra view
+            $(`#jewelryRow-${cartItem.id}`).fadeOut(500, () => { $(this).remove() });
+
+            // opdater pris
+            updateTotalPrice(-(cartItem.amount * cartItem.jewelry.price));
+
+            // opdater headline
+            totalAmountOfCartItems -= cartItem.amount;
+            if(totalAmountOfCartItems > 0) {
+                updateHeadlineWithAmount();
+            } else {
+                updateHeadlineEmptyCart();
+                document.getElementById('totalPriceRow').remove();
+            }
+            
+            cartItem = undefined;
+        } else {
+            alert("Der skete en fejl, da du forsøgte at fjerne varen fra din indkøbskurv.");
+        }
+    })
+
+}

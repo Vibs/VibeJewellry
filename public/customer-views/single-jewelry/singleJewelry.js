@@ -82,9 +82,7 @@ function addToCart(){
         amount: 1
     }
 
-    console.log(cartItem);
-
-    fetch("/api/cartItems", {
+    fetch(`/api/users/${getCookie('userId')}/cartItems`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json; charset=UTF-8', // denne linje siger at dataen som vi sender er en string 
