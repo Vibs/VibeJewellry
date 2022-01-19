@@ -1,3 +1,8 @@
+#headline {
+    font-size: calc(28.5px + 0.1vw);
+    margin: 25px 0;
+}
+
 #gold-image {
     width: 100%;
     border-width: 1px 0; /*får border top og bot*/

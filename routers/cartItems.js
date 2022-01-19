@@ -5,16 +5,17 @@ const router = express.Router();
 import authRouter from "./auth/userAuth.js";
 const authenticateToken = authRouter.authenticateToken;
 
-router.post("/api/users/:userId/cartItem/:jewelryId", authenticateToken, async (req, res) => {
+router.post(`/api/users/:userId/cartItems`, authenticateToken, async (req, res) => {
+    const cartItem = req.body;
 
     // tjek først om der ER dette smykke oprettet som cartItem på denne bruger
-    const cartItemFromDb = await connection.all("SELECT * FROM cartItems WHERE userId = ? AND jewelryId = ?", [req.params.userId, req.params.jewelryId])
+    const cartItemFromDb = await connection.all("SELECT * FROM cartItems WHERE userId = ? AND jewelryId = ?", [cartItem.userId, cartItem.jewelryId])
 
     if(cartItemFromDb.length > 0) {
         // opdater eksisterende i stedet
         await connection.run("UPDATE cartItems SET amount = ? WHERE id = ?", [cartItemFromDb[0].amount + 1, cartItemFromDb[0].id]);
     } else {
-        await connection.run("INSERT INTO cartItems ('userId', 'jewelryId', 'amount') VALUES (?, ?, ?)", [req.params.userId, req.params.jewelryId, 1]);
+        await connection.run("INSERT INTO cartItems ('userId', 'jewelryId', 'amount') VALUES (?, ?, ?)", [cartItem.userId, cartItem.jewelryId, cartItem.amount]);
     }
 
     res.sendStatus(200);
@@ -33,6 +34,14 @@ router.get("/api/users/:userId/cartItems", authenticateToken, async (req, res) =
     }));
 
     res.send(cartItems);
+});
+
+router.patch("/api/users/:userId/cartItems/:cartItemId", authenticateToken, (req, res) => {
+    const cartItem = req.body;
+
+    connection.run("UPDATE cartItems SET amount = ? WHERE id = ?", [cartItem.amount, req.params.cartItemId]);
+
+    res.sendStatus(200);
 });
 
 

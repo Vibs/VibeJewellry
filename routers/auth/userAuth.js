@@ -69,7 +69,6 @@ router.post("/api/users/login", async (req, res) => {
 
 
 const authenticateToken = (req, res, next) => {
-    // TODO det er hre jeg er nået til
     const accessToken = req.cookies.accessToken;
 
     if(accessToken == null){
@@ -80,13 +79,12 @@ const authenticateToken = (req, res, next) => {
     // user == det objekt som vi i get(/login) seriliserede i jwt.sign()
     jwt.verify(accessToken, process.env.USER_ACCESS_TOKEN_SECRET, async (error, user) => {
         if(error){ // token'en er ikke valid
-
             // prøv med refresh
             return tryWithRefreshToken(req, res, next);
         }
-
+       
         // TODO tjek at user.email's id matcher med req.params.userId
-        if(await doesTokenUserEmailAndParamUserIdMatch(req.params.userId, user.email) == true){
+        if(await doesTokenUserEmailAndParamUserIdMatch((req.params.userId ? req.params.userId : req.body.userId), user.email) == true){
             console.log("access er gyldig");
             next(); // kalder den callback som bliver givet med når vi kalder authenticateToken()-func
         } else { // useren med dette accessToken requester en anden users oplysninger
@@ -96,6 +94,10 @@ const authenticateToken = (req, res, next) => {
 }
 
 async function doesTokenUserEmailAndParamUserIdMatch(id, email) {
+    if(typeof id == "string") {
+        id = Number(id);
+    }
+
     const foundUser = await connection.all("SELECT * FROM users WHERE id = ? AND email = ?", [id, email]);
 
     return foundUser.length > 0;
@@ -128,7 +130,7 @@ const tryWithRefreshToken = async (req, res, next) => {
         }
 
         // tjek om tokenen (som er der og er valid) er sendt fra samme bruge som der anmodes data om
-        if(await doesTokenUserEmailAndParamUserIdMatch(req.params.userId, user.email) == true){
+        if(await doesTokenUserEmailAndParamUserIdMatch((req.params.userId ? req.params.userId : req.body.userId), user.email) == true){
 
             // hvis den er valid og den rette brugers - så dan et nyt accesstoken, som returneres
             // {name: user.name} og IKKE bare user, fordi user-obj indeholder noget additional info

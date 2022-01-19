@@ -56,8 +56,7 @@ function createSingleJewelryView(jewelry){
 }
 
 
-function checkIfLoggedIn(jewelryId) {
-
+function checkIfLoggedIn() {
     fetch("/api/users/loggedIn", {
         method: 'POST',
         headers: {
@@ -70,23 +69,34 @@ function checkIfLoggedIn(jewelryId) {
         if(data.loggedIn){
             addToCart();
         } else {
-            alert("Du skal være logget ind for at kunne tilføje ngoet til din kurv.");
+            alert("Du skal være logget ind for at kunne tilføje noget til din kurv.");
         }
     });
 }
 
 function addToCart(){
-    fetch(`/api/users/${getCookie('userId')}/cartItem/${jewelryId}`, {
+
+    const cartItem = {
+        userId: getCookie('userId'),
+        jewelryId: jewelryId,
+        amount: 1
+    }
+
+    console.log(cartItem);
+
+    fetch("/api/cartItems", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json; charset=UTF-8', // denne linje siger at dataen som vi sender er en string 
-        }
+        },
+        body: JSON.stringify(cartItem)
     })
-    .then(response => {
-        if(response.ok){
+    .then(res => {
+        if(res.ok){
+            console.log("res", res.status);
             alert("Tilføjet til kurven");
         } else {
-            throw new Error(`${response.status}: ${response.statusText}`);
+            throw new Error(`${res.status}: ${res.statusText}`);
         }
     })
     .catch(error => console.log(error));

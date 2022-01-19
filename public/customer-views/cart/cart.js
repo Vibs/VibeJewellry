@@ -50,8 +50,8 @@ function createCartJewelryView(cartItem){
     <div class="row-item-wrapper">
         ${ escapeHTML((cartItem.jewelry.stock == 0))
             ? `<p class="sold-out">Udsolgt</p>`
-            : `<select id="amountSelect-${escapeHTML(cartItem.id)}" onchange="updateCartItemAmount(this, ${escapeHTML(cartItem.id)})"></select>
-            <p class="total"> ${escapeHTML((cartItem.jewelry.price * cartItem.amount))} dkk</p>
+            : `<select id="amountSelect-${escapeHTML(cartItem.id)}"></select>
+            <p id="total-${escapeHTML(cartItem.id)}" class="total"> ${escapeHTML((cartItem.jewelry.price * cartItem.amount))} dkk</p>
             <i id="remove-${escapeHTML(cartItem.id)}" class="fas fa-trash-alt remove"></i>`
         }
     </div>
@@ -64,7 +64,9 @@ function createCartJewelryView(cartItem){
         addOptionsToSelect(cartItem);
 
         // tilføj eventlistener til options
+        const select = document.getElementById(`amountSelect-${cartItem.id}`);
 
+        select.addEventListener('change', (event) => updateCartItemAmount(event, cartItem));
     }
 }
 
@@ -81,7 +83,6 @@ function addOptionsToSelect(cartItem) {
         // lav nyt option-el
         const newOption = document.createElement('option');
 
-        //tilføj det til select
         newOption.value = i;
         newOption.innerText = i;
 
@@ -89,15 +90,33 @@ function addOptionsToSelect(cartItem) {
         if(cartItem.amount == i) {
             newOption.selected = true;
         }
-        
         select.appendChild(newOption);
     }
-
 }
 
-function updateCartItemAmount(select, cartItemId) {
-    console.log(`select: ${select.value}, cartItemId: ${cartItemId}`);
-    
+function updateCartItemAmount(event, cartItem) {
+    const selectedAmount = event.target.value;
 
+    const newAmount = { 
+        amount: selectedAmount,
+    }
+
+    fetch(`/api/users/${getCookie('userId')}/cartItems/${cartItem.id}`, {
+        method: "PATCH",
+        headers: {
+            'Content-Type': 'application/json; charset=UTF-8'
+        },
+        body: JSON.stringify(newAmount)
+    })
+    .then(response => {
+        if(response.ok) {
+            const total = document.getElementById(`total-${cartItem.id}`);
+            total.innerText = `${(selectedAmount * cartItem.jewelry.price).toString(10)} dkk`;
+        } else {
+            select.value = cartItem.amount; // originalAmount
+            throw new Error("Error in changing amount on cartItem");
+        }
+    })
+    .catch(error => console.log(error))
 }
 
