@@ -1,12 +1,12 @@
 import fs from "fs";
 
-const customerNav = fs.readFileSync("./public/view-components/customer/navbar/navbar.html", "utf8");
-const customerFooter = fs.readFileSync("./public/view-components/customer/footer/footer.html", "utf8");
-const customerChat = fs.readFileSync("./public/view-components/customer/chat/chat.html", "utf8");
+const customerNav = fs.readFileSync("./public/customer-views/view-components/navbar/navbar.html", "utf8");
+const customerFooter = fs.readFileSync("./public/customer-views/view-components/footer/footer.html", "utf8");
+const customerChat = fs.readFileSync("./public/customer-views/view-components/chat/chat.html", "utf8");
 
 
-const adminNav = fs.readFileSync("./public/view-components/admin/navbar/navbar.html", "utf8");
-const adminFooter = fs.readFileSync("./public/view-components/admin/footer/footer.html", "utf8");
+const adminNav = fs.readFileSync("./public/admin-views/view-components/navbar/navbar.html", "utf8");
+const adminFooter = fs.readFileSync("./public/admin-views/view-components/footer/footer.html", "utf8");
 
 const customerPages = {
     loginPage: createCustomerPage("login/login.html", {
