@@ -1,8 +1,8 @@
 import express from "express";
 const app = express();
 app.use(express.static("public")); // defines that express finds static files in the public-folder
-app.use(express.json()); // makes express interprer incoming data as json
-app.use(express.urlencoded({extended: true})); // supports data from forms - needed to parse form-data
+app.use(express.json()); //parses incoming requests with JSON data
+//app.use(express.urlencoded({extended: true})); // supports data from forms - needed to parse form-data . men jeg bruger ikke forms men fetch
 
 import dotenv from 'dotenv';
 dotenv.config();
