@@ -1,0 +1,59 @@
+input {
+    width: 50%;
+    margin: auto;
+    font-family: 'Raleway', sans-serif; /*TODO tjek om man kan sige inherit*/
+}
+
+/*  https://codepen.io/Tixie/pen/cAxIv */
+.contact-send-btn {
+    margin-left: 0.5em;
+
+    height: 2em;
+    width: 40%;
+    font-size: 1.17em;
+    padding-left: 1.7rem;
+   
+    font-weight: bold;
+    font-family: 'Raleway', sans-serif !important;
+    text-transform: uppercase;
+    color: #696666;
+    background: url(https://i.imgur.com/Th606mh.png) no-repeat scroll 0.75em -0.3em transparent;
+    background-size: 25px 80px;
+    
+    border-radius: 2em;
+    border: 0.15em solid #5b84b1;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+}
+.contact-send-btn:hover {
+    color: #fff;
+    background-color: #5b84b1;
+    border-color: #5b84b1;
+    background-position: 0.75em bottom;
+    -webkit-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+.contact-send-btn:focus {
+    background-position: 2em -4em;
+    -webkit-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+/*Webfonts */
+  
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 700;
+    src: local('Open Sans Bold'), local('OpenSans-Bold'), url(https://themes.googleusercontent.com/static/fonts/opensans/v8/k3k702ZOKiLJc3WVjuplzHhCUOGz7vYGh680lGh-uXM.woff) format('woff');
+}
+
+embed {
+    position: relative;
+    top: 50px;
+    margin-bottom: 50px;
+    width: 50%;
+    height: 1000px;
+}

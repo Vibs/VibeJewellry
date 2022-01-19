@@ -1,0 +1,97 @@
+body {font-family: Arial, Helvetica, sans-serif;}
+* {box-sizing: border-box;}
+
+.chat {
+  position: relative;
+  bottom: 0;
+  right: 0;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+  margin: 30px;
+  width: 300px;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 300px;
+  padding: 10px;
+  background-color: white;
+}
+
+/* Full-width textarea */
+.form-container textarea {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  background: #f1f1f1;
+  resize: none;
+  font-size: 12px;
+  color: black;
+  font-weight: 600;
+  min-height: 50px;
+  margin: 16px 0;
+}
+
+/* When the textarea gets focus, do something */
+.form-container textarea:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/send button */
+.form-container .btn {
+  background-color: rgb(168, 211, 168);
+  color: black;
+  font-weight: bold;
+  padding: 5px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+  border-radius: 2em;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover {
+  opacity: 1;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .closeButton {
+  background-color: rgb(238, 154, 154);
+}
+
+.convoWrapper {
+  min-height: 200px;
+  overflow-y: auto;
+  max-height: 200px;
+  border: 1px solid lightgrey;
+  padding: 5px;
+}
+
+.message-wrapper {
+  display: inline-block;
+  width: 100%;
+}
+
+
+.message {
+  max-width: 80%;
+  position: relative;
+  border-radius: 2em;
+  font-size: 12px;
+  min-width: 30%;
+  padding: 10px
+}
+
+.received-message {
+  float: left;
+  background-color: lightgrey;
+}
+
+.own-message {
+  float: right;
+  background-color: rgb(135, 192, 245);
+}
+

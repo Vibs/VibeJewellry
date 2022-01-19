@@ -2,10 +2,10 @@ import express from "express";
 import { connection } from "../database/connectSqlite.js";
 const router = express.Router();
 
-import authRouter from "./userAuth.js";
+import authRouter from "./auth/userAuth.js";
 const authenticateToken = authRouter.authenticateToken;
 
-router.post("/users/:userId/cartItem/:jewelryId", authenticateToken, async (req, res) => {
+router.post("/api/users/:userId/cartItem/:jewelryId", authenticateToken, async (req, res) => {
 
     // tjek først om der ER dette smykke oprettet som cartItem på denne bruger
     const cartItemFromDb = await connection.all("SELECT * FROM cartItems WHERE userId = ? AND jewelryId = ?", [req.params.userId, req.params.jewelryId])
@@ -20,7 +20,7 @@ router.post("/users/:userId/cartItem/:jewelryId", authenticateToken, async (req,
     res.sendStatus(200);
 });
 
-router.get("/users/:userId/cartItems", authenticateToken, async (req, res) => {
+router.get("/api/users/:userId/cartItems", authenticateToken, async (req, res) => {
     const userId = req.params.userId;
 
     let cartItems = await connection.all("SELECT * FROM cartItems WHERE userId = ?", [userId]);

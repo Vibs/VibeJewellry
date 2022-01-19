@@ -8,125 +8,113 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 //------- ROUTES
-import adminAuthRouter from "./routers/adminAuth.js";
+import adminAuthRouter from "./routers/auth/adminAuth.js";
 app.use(adminAuthRouter.router);
-
-import userAuthRouter from "./routers/userAuth.js";
+import userAuthRouter from "./routers/auth/userAuth.js";
 app.use(userAuthRouter.router);
-
-const authenticateToken = userAuthRouter.authenticateToken;
-
-
 import contactRouter from "./routers/contact.js";
 app.use(contactRouter.router);
-
 import jewelryRouter from "./routers/jewelry.js";
 app.use(jewelryRouter.router);
-
-import cartItemRouter from "./routers/cartItem.js";
+import cartItemRouter from "./routers/cartItems.js";
 app.use(cartItemRouter.router);
-
-import userRouter from "./routers/user.js";
+import userRouter from "./routers/users.js";
 app.use(userRouter.router);
-
 import adminRouter from "./routers/admin.js";
 app.use(adminRouter.router);
+import { messageRouter } from "./routers/messages.js";
+app.use(messageRouter);
 
-// func som bruges til at forberede siderne
-import { createPage } from "./render.js";
+// forberedte sider
+import { customerPages } from "./render.js";
 
-// Forbereder siderne
-const loginPage = createPage("login/login.html", {
-    title: "Log ind",
-    script: [{ src: "/views/login/login.js" }],
-});
-
-const createUserPage = createPage("create-user/createUser.html", {
-    title: "Log ind",
-    script: [{ src: "/views/create-user/createUser.js" }],
-});
-
-const profilePage = createPage("profile/profile.html", {
-    title: "Profil",
-    script: [{ src: "/views/profile/profile.js" }],
-});
-
-const frontpage = createPage("frontpage/frontpage.html", {
-    title: "Hjem",
-    styling: [{ href: "/views/frontpage/frontpage.css" }]
-});
-
-const preLogInCartPage = createPage("cart/prelogin-cart.html", {
-    title: "Indkøbskurv",
-});
-
-
-
-const contactPage = createPage("contact/contact.html", {
-    title: "Kontakt",
-    script: [{ src: "/views/contact/contact.js" }],
-    styling: [{ href: "/views/contact/contact.css"}]
-});
-
-const cartPage = createPage("cart/cart.html", {
-    title: "Indkøbskurv",
-    script: [{ src: "/views/cart/cart.js" }],
-    styling: [{ href: "/views/cart/cart.css"}]
-});
-
-const allJewelryPage = createPage("jewelry/jewelry.html", {
-    title: "Smykker",
-    script: [{ src: "/views/jewelry/jewelry.js" }],
-    styling: [{ href: "/views/jewelry/jewelry.css"}]
-});
-
-const singleJewelryPage = createPage("single-jewelry/singleJewelry.html", {
-    title: "Smykker",
-    script: [{ src: "/views/single-jewelry/singleJewelry.js"}],
-    styling: [{ href: "/views/single-jewelry/singleJewelry.css" }],
-});
+// func som bruges til at authenticate brugeren
+const authenticateToken = userAuthRouter.authenticateToken;
 
 // endpoints
 app.get("/", (req, res) => {
-    res.send(frontpage);
-})
-
+    res.send(customerPages.frontpage);
+});
 app.get("/users/login", (req, res) => {
-    res.send(loginPage);
-})
-
+    res.send(customerPages.loginPage);
+});
 app.get("/users/:userId/profile", authenticateToken, (req, res) => {
-    res.send(profilePage);
-})
-
+    res.send(customerPages.profilePage);
+});
 app.get("/users/create", (req, res) => {
-    res.send(createUserPage);
-})
-
+    res.send(customerPages.createUserPage);
+});
 app.get("/users/:userId/cart", authenticateToken, (req, res) => {
-    res.send(cartPage);
+    res.send(customerPages.cartPage);
+});
+app.get("/contact", (req, res) => {
+    res.send(customerPages.contactPage);
+});
+app.get("/cart", (req, res) => {
+    res.send(customerPages.preLogInCartPage);
+});
+app.get("/jewelry", (req, res) => {
+    res.send(customerPages.allJewelryPage);
+});
+app.get("/jewelry/:id", (req, res) => {
+    res.send(customerPages.singleJewelryPage.replace("%%ID%%", req.params.id));
 });
 
-app.get("/contact", (req, res) => {
-    res.send(contactPage);
-})
+//------- SOCKET for chat
+// funktioner som bruges til at lægge i db
+import { messageFunctions } from "./routers/messages.js";
 
-app.get("/cart", (req, res) => {
-    res.send(preLogInCartPage);
-})
+import http from 'http';
+const server = http.createServer(app); // app bliver wrappet til en http-server-instans
 
-app.get("/jewelry", (req, res) => {
-    res.send(allJewelryPage);
-})
+import { Server } from "socket.io";
+const io = new Server(server);
 
-app.get("/jewelry/:id", (req, res) => {
-    res.send(singleJewelryPage.replace("%%ID%%", req.params.id));
-})
+/*
+io.emit == sender til ALLE sockets
+socket.broadcast.emit == broadcaster den ud til alle andre sockets - men ikke til den selv
+socker.emit == sneder kun tilbage til DEN socket
+*/
+
+
+// connection (disconnect) er et default-events - ellers definerer man sine egne events
+io.on("connection", (socket) => {
+    //-------- customer
+    socket.on("send-customer-message", async (message) => {
+
+        // gem i db
+        const messageIsSaved = await messageFunctions.saveUserMessage(message, socket.id);
+
+        if(messageIsSaved) {
+            socket.broadcast.emit("send-message-to-admin", message, socket.id);
+            socket.emit("message-sent-successfully", message);
+        } else {
+            socket.emit("message-not-sent", "Beskeden blev ikke sendt");
+        }
+    });
+
+    //------- admin
+    socket.on("send-message-to-user", async (message, socketId) => {
+        // gem i db
+        const messageIsSaved = await messageFunctions.saveAdminMessage(socketId, message); 
+
+        if(messageIsSaved) {
+            socket.broadcast.emit("send-message-to-customer", message, socketId);
+            socket.emit("admin-message-sent-successfully", message, socketId);
+        } else {
+            socket.emit("message-not-sent", "Beskeden blev ikke sendt");
+        }
+
+    });
+
+    //socket.on("disconnect", () => console.log("Goodbye!!"));
+});
+
 
 
 
 
 const PORT = 8080;
-app.listen(PORT, (error) => {
+server.listen(PORT, (error) => {
     error ? console.log("Error starting server:", error) : console.log("Starting server on port", PORT);
 });

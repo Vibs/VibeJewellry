@@ -4,9 +4,7 @@ const router = express.Router();
 import nodemailer from "nodemailer";
 
 router.post("/api/contact", (req, res) => {
-    let status = 200;
-    
-    let transporter = nodemailer.createTransport({
+    const transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
           user: process.env.EMAIL_NODEMAILER,
@@ -17,7 +15,7 @@ router.post("/api/contact", (req, res) => {
         }
     });
 
-    let mailToCustomer = {
+    const mailToCustomer = {
         from: process.env.EMAIL_NODEMAILER, // sender address
         to: [req.body.email], // sender mail til brugers indtastede email
         subject: `Tak for din besked! `, // Subject line
@@ -25,7 +23,7 @@ router.post("/api/contact", (req, res) => {
         `------------------------<br> Besked modtaget: <br>${req.body.message}` // plain text body
     }
 
-    let mailToVibeJewelry = {
+    const mailToVibeJewelry = {
         from: process.env.EMAIL_NODEMAILER, // sender address
         to: [process.env.EMAIL], // sender mail til mig selv
         subject: `Kontaktformular fra ${req.body.email}`, // Subject line

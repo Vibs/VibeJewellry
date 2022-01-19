@@ -16,7 +16,7 @@ router.use(cors());
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-import { connection } from "../database/connectSqlite.js";
+import { connection } from "../../database/connectSqlite.js";
 
 
 // callbacken er async fordi jeg bruger bcrypt, som er et async library
@@ -156,7 +156,7 @@ router.delete("/admin/logout", async (req, res) => {
 })
 
 function generateAccessToken(user){
-    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '10s'});
+    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '5s'});
 }
 
 function generateRefreshToken(user) {

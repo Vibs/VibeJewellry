@@ -1,5 +1,6 @@
 
 const submitButton = document.getElementById('submit-button');
+const messageField = document.getElementById('text-message');
 
 submitButton.addEventListener('click', sendContactMessage);
 
@@ -11,7 +12,9 @@ function sendContactMessage() {
     */
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
-    const message = document.getElementById('message').value;
+    const message = messageField.value;
+
+    console.log(`${name}, ${email}, ${message}`);
 
     if(name && email && message){
         const messageDetails = {
@@ -45,25 +48,6 @@ function sendContactMessage() {
     }
 
 }
-
-
-/*
-fetch("/api/projects")
-.then(response => response.json())
-.then(result => {
-    //todo group the projects by category
-    // fx metoden reduce()
-    console.log(result);
-
-    const doc = document.getElementById("projects-wrapper");
-
-    // hvis hvert projekt kronologisk (efter index) på siden
-    //! siger .projects fordi result = objektet med en key som hedder projects
-    result.projects.forEach(createProject, doc);
-
-});
-
-*/
 
 
 

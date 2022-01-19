@@ -1,9 +1,10 @@
 {
   "type": "module",
   "scripts": {
-    "create-admins-db": "node ./database/createAdminsTable.js",
-    "create-jewelry-db": "node ./database/createJewelryTable.js",
-    "create-users-db": "node ./database/createUsersTable.js",
+    "create-admins-table": "node ./database/createAdminsTable.js",
+    "create-jewelry-table": "node ./database/createJewelryTable.js",
+    "create-users-table": "node ./database/createUsersTable.js",
+    "create-messages-table": "node ./database/createMessagesTable.js",
     "start": "nodemon.cmd app.js"
   },
   "dependencies": {
@@ -16,6 +17,7 @@
     "jsonwebtoken": "^8.5.1",
     "nodemailer": "^6.7.2",
     "nodemon": "^2.0.15",
+    "socket.io": "^4.4.1",
     "sqlite": "^4.0.23",
     "sqlite3": "^5.0.2"
   }
