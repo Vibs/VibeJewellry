@@ -2,12 +2,10 @@
 const headline = document.getElementById('headline');
 const jewelryWrapper = document.getElementById("jewelry-wrapper");
 
-// TODO slet denne!!!!!
-//const userId = getCookie('userId');
 let totalPrice = 0;
 let totalAmountOfCartItems = 0;
 
-fetch("/api/cartItems", { // TODO slet `/api/users/${userId}/cartItems`, {
+fetch("/api/cartItems", {
     method: 'GET', 
     headers: {
         'Accept': 'application/json'
@@ -132,7 +130,7 @@ function updateCartItemAmount(event, cartItem) {
         amount: newAmount,
     }
 
-    fetch(`/api/cartItems/${cartItem.id}`, {// TODO slet: `/api/users/${userId}/cartItems/${cartItem.id}`, {
+    fetch(`/api/cartItems/${cartItem.id}`, {
         method: "PATCH",
         headers: {
             'Content-Type': 'application/json'
@@ -201,7 +199,7 @@ function updateHeadlineEmptyCart() {
 
 function removeCartItem(cartItem) {
 
-    fetch(`/api/cartItems/${cartItem.id}`, { // TODO slet`/api/users/${userId}/cartItems/${cartItem.id}`, {
+    fetch(`/api/cartItems/${cartItem.id}`, {
         method: "DELETE", 
         credentials: 'include'
     })
@@ -221,7 +219,6 @@ function removeCartItem(cartItem) {
                 updateHeadlineEmptyCart();
                 document.getElementById('totalPriceRow').remove();
             }
-            
             cartItem = undefined;
         } else {
             alert("Der skete en fejl, da du forsøgte at fjerne varen fra din indkøbskurv.");

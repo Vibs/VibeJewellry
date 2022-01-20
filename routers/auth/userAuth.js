@@ -45,13 +45,12 @@ router.post("/api/users/login", async (req, res) => {
                 httpOnly: true,
             });
 
-            // sæt disse til httpOnly: true,
-            res.cookie('userId', userFromDb[0].id);
+            res.cookie('userId', userFromDb[0].id, {
+                maxAge: 24 * 60 * 60 * 1000,
+                httpOnly: true,
+            });
             res.cookie('username', userFromDb[0].username);
 
-
-
-            //res.json({accessToken: accessToken, refreshToken: refreshToken});
             res.json({accessToken: accessToken});
         }
         else { // ikke rigtigt password
@@ -80,7 +79,7 @@ const authenticateToken = (req, res, next) => {
             return tryWithRefreshToken(req, res, next);
         }
        
-        // TODO tjek at user.email's id matcher med userId fra cookie
+        // tjek at user.email's id matcher med userId fra cookie
         if(await doesTokenUserEmailAndParamUserIdMatch(userId, user.email) == true) {
             next(); // kalder den callback som bliver givet med når vi kalder authenticateToken()-func
         } else { // useren med dette accessToken requester en anden users oplysninger

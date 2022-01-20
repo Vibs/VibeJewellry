@@ -1,7 +1,5 @@
 const loggedOutDropdown = document.getElementById('loggedOutDropdown');
 const loggedInDropdown = document.getElementById('loggedInDropdown');
-const loggedOutCartLink = document.getElementById('loggedOutCartLink');
-const loggedInCartLink = document.getElementById('loggedInCartLink');
 
 const logOut = document.getElementById('logOut');
 
@@ -13,7 +11,12 @@ fetch("/api/users/loggedIn", {
   }
 })
 .then(response => response.json())
-.then(data => modifyUserDropdown(data));
+.then(data => {
+  if(data.loggedIn) {
+    loggedInDropdown.hidden = false;
+    loggedOutDropdown.hidden = true;
+  }
+});
 
 
 logOut.addEventListener("click", fetchLogOut);
@@ -33,42 +36,7 @@ function fetchLogOut() {
     .catch(error => console.log("Error logging out", error));
 }
 
-function modifyUserDropdown(data) {
- 
-  if(data.loggedIn) {
-    loggedInDropdown.hidden = false;
-    loggedOutDropdown.hidden = true;
-    /* TODO slet disse to
-    loggedInCartLink.hidden = false;
-    loggedOutCartLink.hidden = true;
-    */
-
-    /* TODO slet resten herinde fra!!
-    const profileLink = document.getElementById('profileLink');
-    const ordersLink = document.getElementById('ordersLink');
-    const cartLink = document.getElementById('cartLink');
-
-    profileLink.setAttribute("href", `/profile`);
-    ordersLink.setAttribute("href", `/orders`);
-    */
-    // TODO slet loggedInCartLink.setAttribute("href", `/cart`);
-  }
-  
-  /* TODO slet const userId = getCookie("userId");
-
-  if (userId) {
-    const profileLink = document.getElementById('profileLink');
-    const ordersLink = document.getElementById('ordersLink');
-    const cartLink = document.getElementById('cartLink');
-
-    profileLink.setAttribute("href", `/users/${userId}/profile`);
-    ordersLink.setAttribute("href", `/users/${userId}/orders`);
-    loggedInCartLink.setAttribute("href", `/users/${userId}/cart`);
-  }
-  */
-}
-
-// TODO slet
+// bruges lige nu kun i profile.js til at hente brugernavn
 function getCookie(cookieName) {
   const name = cookieName + "=";
   const decodedCookie = decodeURIComponent(document.cookie);

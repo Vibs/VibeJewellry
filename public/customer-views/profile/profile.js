@@ -1,6 +1,5 @@
 const headline = document.getElementById('headline');
 
-// TODO overvej måske at slette fra cookie??
 let username = getCookie('username');
 
 if(username){

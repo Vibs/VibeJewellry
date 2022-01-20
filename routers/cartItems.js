@@ -2,13 +2,11 @@ import express from "express";
 const router = express.Router();
 
 import { connection } from "../database/connectSqlite.js";
-import { getCookie } from "../handleCookies.js";
-
 
 import authRouter from "./auth/userAuth.js";
 const authenticateToken = authRouter.authenticateToken;
 
-router.post("/api/cartItems" , authenticateToken, async (req, res) => {//TODO slet `/api/users/:userId/cartItems`, authenticateToken, async (req, res) => {
+router.post("/api/cartItems" , authenticateToken, async (req, res) => {
     const cartItem = req.body;
 
     const userId = req.cookies.userId;
@@ -30,8 +28,7 @@ router.post("/api/cartItems" , authenticateToken, async (req, res) => {//TODO sl
     res.sendStatus(200);
 });
 
-router.get("/api/cartItems", authenticateToken, async (req, res) => { //TODO slet "/api/users/:userId/cartItems"
-    // TODO slet const userId = req.params.userId;
+router.get("/api/cartItems", authenticateToken, async (req, res) => {
     const userId = req.cookies.userId;
 
     let cartItems = await connection.all("SELECT * FROM cartItems WHERE userId = ?", [userId]);
@@ -46,7 +43,7 @@ router.get("/api/cartItems", authenticateToken, async (req, res) => { //TODO sle
     res.send(cartItems);
 });
 
-router.patch("/api/cartItems/:id", authenticateToken, (req, res) => { // TODO slet "/api/users/:userId/cartItems/:cartItemId"
+router.patch("/api/cartItems/:id", authenticateToken, (req, res) => {
     const cartItem = req.body;
 
     connection.run("UPDATE cartItems SET amount = ? WHERE id = ?", [cartItem.amount, req.params.id]);
@@ -54,7 +51,7 @@ router.patch("/api/cartItems/:id", authenticateToken, (req, res) => { // TODO sl
     res.sendStatus(200);
 });
 
-router.delete("/api/cartItems/:id", authenticateToken, async (req, res) => { //TODO slet "/api/users/:userId/cartItems/:cartItemId"
+router.delete("/api/cartItems/:id", authenticateToken, async (req, res) => {
    
     const id = req.params.id;
 

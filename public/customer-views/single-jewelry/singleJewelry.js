@@ -2,29 +2,13 @@ const jewelryWrapper = document.getElementById("jewelry-wrapper");
 
 const jewelryId = document.getElementById('current-jewelry-id').innerText;
 
-
-
 fetch(`/api/jewelry/${jewelryId}`)
 .then(response => response.json())
-.then(jewelryList => jewelryList.forEach(jewelry => createSingleJewelryView(jewelry)));
-
-/*
-TODO lav denne!!!
-    console.log(response);
-    if(response.status === 200) {
-        //Ja, I know den er grim puhaaa
-        alert("Projektet blev oprettet");
-
-        // og så redirect til anden side
-        window.location.replace("/dashboard");
-        
-    } else {
-        console.log("Error creatinh project:", response.status);
-        alert("Der skete en fejl med at oprette projektet");
-    }
-})
-*/
-
+.then(jewelryList => jewelryList.forEach(jewelry => createSingleJewelryView(jewelry)))
+.catch(error => {
+    console.log("Error in showing single jewelry", error);
+    alert("Der skete en fejl med at hente smykket");
+});
 
 function createSingleJewelryView(jewelry){
     const jewelryDiv = document.createElement('div');
@@ -50,11 +34,9 @@ function createSingleJewelryView(jewelry){
 
     jewelryWrapper.appendChild(jewelryDiv);
     
-
     //så tilføj eventlistener på knap
     const addToCartButton = document.getElementById("add-to-cart");
     addToCartButton.addEventListener('click', checkIfLoggedIn);
-
 }
 
 
@@ -79,12 +61,11 @@ function checkIfLoggedIn() {
 function addToCart(){
 
     const cartItem = {
-        //userId: getCookie('userId'), // TODO cookie indsæt intet her - gør det i backend i stedet
         jewelryId: jewelryId,
         amount: 1
     }
 
-    fetch("/api/cartItems" , {//`/api/users/${getCookie('userId')}/cartItems`, {
+    fetch("/api/cartItems" , {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json; charset=UTF-8', // denne linje siger at dataen som vi sender er en string 

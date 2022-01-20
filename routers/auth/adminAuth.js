@@ -7,17 +7,10 @@ dotenv.config();
 import cookieParser from "cookie-parser";
 router.use(cookieParser());
 
-// jeg fik cors-problemer fordi jeg fetcher fra login.js
-// derfor: npm i cors
-// TODO tjek om det stadig er relevant eller om den skal slettes
-import cors from "cors";
-router.use(cors());
-
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 import { connection } from "../../database/connectSqlite.js";
-
 
 // callbacken er async fordi jeg bruger bcrypt, som er et async library
 router.post("/admin/login", async (req, res) => {
@@ -69,7 +62,6 @@ router.post("/admin/login", async (req, res) => {
 
 
 const authenticateToken = (req, res, next) => {
-    // TODO det er hre jeg er nået til
     const accessToken = req.cookies.accessToken;
 
     if(accessToken == null){

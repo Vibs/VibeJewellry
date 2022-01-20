@@ -60,7 +60,7 @@ function decodeBase64Image(dataString) {
     return response;
   }
 
-//------------------------ ADMIN - TODO
+//------------------------ ADMIN
 // UPDATE
 router.patch("/api/jewelry/:id", authRouter.authenticateToken, (req, res) => {
 

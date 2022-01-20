@@ -22,10 +22,7 @@ function logIn() {
         })
         .then(response => {
             if (response.ok) {
-                // TODO slet denne!!!
-                //const userId = getCookie("userId");
-
-                window.location.replace("/profile"); // TODO slet `/users/${userId}/profile`);
+                window.location.replace("/profile");
             } else if(response.status == 400) {
                 alert("Der findes ikke en bruger med denne email.");
                 throw new Error(`${response.status} ${response.statusText}`);
