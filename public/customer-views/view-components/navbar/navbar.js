@@ -38,11 +38,23 @@ function modifyUserDropdown(data) {
   if(data.loggedIn) {
     loggedInDropdown.hidden = false;
     loggedOutDropdown.hidden = true;
+    /* TODO slet disse to
     loggedInCartLink.hidden = false;
     loggedOutCartLink.hidden = true;
+    */
+
+    /* TODO slet resten herinde fra!!
+    const profileLink = document.getElementById('profileLink');
+    const ordersLink = document.getElementById('ordersLink');
+    const cartLink = document.getElementById('cartLink');
+
+    profileLink.setAttribute("href", `/profile`);
+    ordersLink.setAttribute("href", `/orders`);
+    */
+    // TODO slet loggedInCartLink.setAttribute("href", `/cart`);
   }
   
-  const userId = getCookie("userId");
+  /* TODO slet const userId = getCookie("userId");
 
   if (userId) {
     const profileLink = document.getElementById('profileLink');
@@ -53,8 +65,10 @@ function modifyUserDropdown(data) {
     ordersLink.setAttribute("href", `/users/${userId}/orders`);
     loggedInCartLink.setAttribute("href", `/users/${userId}/cart`);
   }
+  */
 }
 
+// TODO slet
 function getCookie(cookieName) {
   const name = cookieName + "=";
   const decodedCookie = decodeURIComponent(document.cookie);

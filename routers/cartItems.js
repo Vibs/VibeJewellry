@@ -1,28 +1,38 @@
 import express from "express";
-import { connection } from "../database/connectSqlite.js";
 const router = express.Router();
+
+import { connection } from "../database/connectSqlite.js";
+import { getCookie } from "../handleCookies.js";
+
 
 import authRouter from "./auth/userAuth.js";
 const authenticateToken = authRouter.authenticateToken;
 
-router.post(`/api/users/:userId/cartItems`, authenticateToken, async (req, res) => {
+router.post("/api/cartItems" , authenticateToken, async (req, res) => {//TODO slet `/api/users/:userId/cartItems`, authenticateToken, async (req, res) => {
     const cartItem = req.body;
 
-    // tjek først om der ER dette smykke oprettet som cartItem på denne bruger
-    const cartItemFromDb = await connection.all("SELECT * FROM cartItems WHERE userId = ? AND jewelryId = ?", [cartItem.userId, cartItem.jewelryId])
+    const userId = req.cookies.userId;
+    console.log("Hej fra post userId", userId);
 
+    // tjek først om der ER dette smykke oprettet som cartItem på denne bruger
+    const cartItemFromDb = await connection.all("SELECT * FROM cartItems WHERE userId = ? AND jewelryId = ?", [userId, cartItem.jewelryId])
+    console.log("cartItemFromDb", cartItemFromDb);
     if(cartItemFromDb.length > 0) {
+        console.log("allerede samme i db");
         // opdater eksisterende i stedet
         await connection.run("UPDATE cartItems SET amount = ? WHERE id = ?", [cartItemFromDb[0].amount + 1, cartItemFromDb[0].id]);
     } else {
-        await connection.run("INSERT INTO cartItems ('userId', 'jewelryId', 'amount') VALUES (?, ?, ?)", [cartItem.userId, cartItem.jewelryId, cartItem.amount]);
+        console.log("ikke samme i db");
+
+        await connection.run("INSERT INTO cartItems ('userId', 'jewelryId', 'amount') VALUES (?, ?, ?)", [userId, cartItem.jewelryId, cartItem.amount]);
     }
 
     res.sendStatus(200);
 });
 
-router.get("/api/users/:userId/cartItems", authenticateToken, async (req, res) => {
-    const userId = req.params.userId;
+router.get("/api/cartItems", authenticateToken, async (req, res) => { //TODO slet "/api/users/:userId/cartItems"
+    // TODO slet const userId = req.params.userId;
+    const userId = req.cookies.userId;
 
     let cartItems = await connection.all("SELECT * FROM cartItems WHERE userId = ?", [userId]);
 
@@ -36,20 +46,21 @@ router.get("/api/users/:userId/cartItems", authenticateToken, async (req, res) =
     res.send(cartItems);
 });
 
-router.patch("/api/users/:userId/cartItems/:cartItemId", authenticateToken, (req, res) => {
+router.patch("/api/cartItems/:id", authenticateToken, (req, res) => { // TODO slet "/api/users/:userId/cartItems/:cartItemId"
     const cartItem = req.body;
 
-    connection.run("UPDATE cartItems SET amount = ? WHERE id = ?", [cartItem.amount, req.params.cartItemId]);
+    connection.run("UPDATE cartItems SET amount = ? WHERE id = ?", [cartItem.amount, req.params.id]);
 
     res.sendStatus(200);
 });
 
-router.delete("/api/users/:userId/cartItems/:cartItemId", authenticateToken, async (req, res) => {
-    console.log("Hej fra slet");
-    console.log("cartItemId", req.params.cartItemId);
-    await connection.run("DELETE FROM cartItems WHERE id = ?", req.params.cartItemId);
+router.delete("/api/cartItems/:id", authenticateToken, async (req, res) => { //TODO slet "/api/users/:userId/cartItems/:cartItemId"
+   
+    const id = req.params.id;
 
-    const deletedCartItem = await connection.all("SELECT * FROM cartItems WHERE id = ?", req.params.cartItemId);
+    await connection.run("DELETE FROM cartItems WHERE id = ?", id);
+
+    const deletedCartItem = await connection.all("SELECT * FROM cartItems WHERE id = ?", id);
 
     console.log("deletedCartItem", deletedCartItem);
     if(deletedCartItem.length == 0){

@@ -2,15 +2,17 @@
 const headline = document.getElementById('headline');
 const jewelryWrapper = document.getElementById("jewelry-wrapper");
 
-const userId = getCookie('userId');
+// TODO slet denne!!!!!
+//const userId = getCookie('userId');
 let totalPrice = 0;
 let totalAmountOfCartItems = 0;
 
-fetch(`/api/users/${userId}/cartItems`, {
+fetch("/api/cartItems", { // TODO slet `/api/users/${userId}/cartItems`, {
     method: 'GET', 
     headers: {
         'Accept': 'application/json'
-    }
+    },
+    credentials: 'include'
 })
 .then(response => {
     if(response.ok){
@@ -20,6 +22,7 @@ fetch(`/api/users/${userId}/cartItems`, {
     }
 })
 .then(cartItems => {
+    console.log("cartItems", cartItems);
     const amountOfItems = cartItems.length;
     if(amountOfItems == 0) {
         updateHeadlineEmptyCart();
@@ -33,10 +36,13 @@ fetch(`/api/users/${userId}/cartItems`, {
 .catch(error => console.error('Error getting cart-items: ', error));
 
 
-function createCartJewelryView(cartItem){
-    // variabel som skal bruges til at vise totalprice i senere funk
-    totalPrice += cartItem.jewelry.price * cartItem.amount;
-    totalAmountOfCartItems += cartItem.amount;
+async function createCartJewelryView(cartItem){
+    // variable som skal bruges til at vise totalprice og antal varer i senere funks
+    if(cartItem.jewelry.stock != 0) {
+        totalPrice += cartItem.jewelry.price * cartItem.amount;
+        totalAmountOfCartItems += cartItem.amount;
+    }
+   
 
     const jewelryDiv = document.createElement('div');
     jewelryDiv.id = `jewelryRow-${escapeHTML(cartItem.id)}`;
@@ -44,7 +50,6 @@ function createCartJewelryView(cartItem){
     jewelryDiv.classList.add("jewelry-row", "align-vert-hor");
 
     jewelryDiv.innerHTML = `
-
     <div class="row-item-wrapper image">
         ${escapeHTML(cartItem.jewelry.image_path) 
             ? `<img class="actual-image" alt="${escapeHTML(cartItem.jewelry.name)}" src="/assets/images/jewelry/${escapeHTML(cartItem.jewelry.image_path)}">`
@@ -59,7 +64,7 @@ function createCartJewelryView(cartItem){
     </div>
     <div class="row-item-wrapper">
         ${ escapeHTML((cartItem.jewelry.stock == 0))
-            ? `<p class="sold-out">Udsolgt</p>`
+            ? `<p class="sold-out">Udsolgt</p> <i id="removeSoldOut-${escapeHTML(cartItem.id)}" class="fas fa-trash-alt remove-sold-out"></i>`
             : `<select id="amountSelect-${escapeHTML(cartItem.id)}"></select>
             <div class="sub-total">
                 <p id="subTotal-${escapeHTML(cartItem.id)}">${escapeHTML((cartItem.jewelry.price * cartItem.amount))}</p>
@@ -80,11 +85,17 @@ function createCartJewelryView(cartItem){
         const select = document.getElementById(`amountSelect-${cartItem.id}`);
 
         select.addEventListener('change', (event) => updateCartItemAmount(event, cartItem));
+            // tilføj 
+        const removeIcon = document.getElementById(`remove-${cartItem.id}`);
+        removeIcon.addEventListener('click', () => removeCartItem(cartItem));
+    } else {
+        const removeIcon = document.getElementById(`removeSoldOut-${cartItem.id}`);
+        removeIcon.addEventListener('click', () => {
+            $(`#jewelryRow-${cartItem.id}`).fadeOut(500, () => { $(this).remove() });
+        });
     }
 
-    // tilføj 
-    const removeIcon = document.getElementById(`remove-${cartItem.id}`);
-    removeIcon.addEventListener('click', () => removeCartItem(cartItem));
+    
 
 }
 
@@ -121,11 +132,12 @@ function updateCartItemAmount(event, cartItem) {
         amount: newAmount,
     }
 
-    fetch(`/api/users/${userId}/cartItems/${cartItem.id}`, {
+    fetch(`/api/cartItems/${cartItem.id}`, {// TODO slet: `/api/users/${userId}/cartItems/${cartItem.id}`, {
         method: "PATCH",
         headers: {
             'Content-Type': 'application/json'
         },
+        credentials: 'include',
         body: JSON.stringify(amount)
     })
     .then(response => {
@@ -188,10 +200,10 @@ function updateHeadlineEmptyCart() {
 }
 
 function removeCartItem(cartItem) {
-    console.log("du har trykket");
 
-    fetch(`/api/users/${userId}/cartItems/${cartItem.id}`, {
-        method: "DELETE"
+    fetch(`/api/cartItems/${cartItem.id}`, { // TODO slet`/api/users/${userId}/cartItems/${cartItem.id}`, {
+        method: "DELETE", 
+        credentials: 'include'
     })
     .then(response => {
         if(response.ok) {
@@ -215,5 +227,4 @@ function removeCartItem(cartItem) {
             alert("Der skete en fejl, da du forsøgte at fjerne varen fra din indkøbskurv.");
         }
     })
-
 }

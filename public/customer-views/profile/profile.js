@@ -1,10 +1,9 @@
 const headline = document.getElementById('headline');
 
+// TODO overvej måske at slette fra cookie??
 let username = getCookie('username');
 
 if(username){
-    console.log(username);
-    console.log(username.indexOf(''));
     if(username.indexOf(' ') > 0){
         username = username.substring(0, username.indexOf(" ")); // kun fornavn
     }

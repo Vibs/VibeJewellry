@@ -7,12 +7,6 @@ dotenv.config();
 import cookieParser from "cookie-parser";
 router.use(cookieParser());
 
-// jeg fik cors-problemer fordi jeg fetcher fra login.js
-// derfor: npm i cors
-// TODO tjek om det stadig er relevant eller om den skal slettes
-import cors from "cors";
-router.use(cors());
-
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
@@ -26,8 +20,7 @@ router.post("/api/users/login", async (req, res) => {
   
     const userFromDb = await connection.all("SELECT * FROM users WHERE email = ?", userFromBody.email);
 
-    if(userFromDb.length < 1){
-        return res.sendStatus(400); // cannot find user
+    if(userFromDb.length < 1) {
     }
 
     try{
@@ -52,8 +45,10 @@ router.post("/api/users/login", async (req, res) => {
                 httpOnly: true,
             });
 
+            // sæt disse til httpOnly: true,
             res.cookie('userId', userFromDb[0].id);
             res.cookie('username', userFromDb[0].username);
+
 
 
             //res.json({accessToken: accessToken, refreshToken: refreshToken});
@@ -70,6 +65,8 @@ router.post("/api/users/login", async (req, res) => {
 
 const authenticateToken = (req, res, next) => {
     const accessToken = req.cookies.accessToken;
+    
+    const userId = req.cookies.userId;
 
     if(accessToken == null){
         // intet token sendt i header --> derfor ingen access
@@ -83,9 +80,8 @@ const authenticateToken = (req, res, next) => {
             return tryWithRefreshToken(req, res, next);
         }
        
-        // TODO tjek at user.email's id matcher med req.params.userId
-        if(await doesTokenUserEmailAndParamUserIdMatch((req.params.userId ? req.params.userId : req.body.userId), user.email) == true){
-            console.log("access er gyldig");
+        // TODO tjek at user.email's id matcher med userId fra cookie
+        if(await doesTokenUserEmailAndParamUserIdMatch(userId, user.email) == true) {
             next(); // kalder den callback som bliver givet med når vi kalder authenticateToken()-func
         } else { // useren med dette accessToken requester en anden users oplysninger
             return res.redirect('/users/login');
@@ -106,6 +102,7 @@ async function doesTokenUserEmailAndParamUserIdMatch(id, email) {
 
 const tryWithRefreshToken = async (req, res, next) => {
     const refreshToken = req.cookies.refreshToken;
+    const userId = req.cookies.userId;
             
     if(refreshToken == null) { // hvis ingen refreshToken
         return res.sendStatus(401);
@@ -130,7 +127,7 @@ const tryWithRefreshToken = async (req, res, next) => {
         }
 
         // tjek om tokenen (som er der og er valid) er sendt fra samme bruge som der anmodes data om
-        if(await doesTokenUserEmailAndParamUserIdMatch((req.params.userId ? req.params.userId : req.body.userId), user.email) == true){
+        if(await doesTokenUserEmailAndParamUserIdMatch(userId, user.email) == true){
 
             // hvis den er valid og den rette brugers - så dan et nyt accesstoken, som returneres
             // {name: user.name} og IKKE bare user, fordi user-obj indeholder noget additional info

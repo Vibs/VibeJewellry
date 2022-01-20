@@ -53,20 +53,22 @@
         <a class="nav-link" href="/jewelry">SMYKKER</a>    
         <div id="nav-user-links-wrapper">
 
-
-            <a id="loggedInCartLink" href="/" class="nav-icon" hidden>
+            <!--TODO slet loggedInCartLink-id'et-->
+            <a id="loggedInCartLink" href="/cart" class="nav-icon">
                 <img  class="user-nav-link" src="/assets/images/icons/cart-icon.png" alt="logo">
             </a> 
 
+            <!-- TODO slet
             <a id="loggedOutCartLink" href="/cart" class="nav-icon">
                 <img  class="user-nav-link" src="/assets/images/icons/cart-icon.png" alt="logo">
             </a> 
+             -->
 
             <div id="loggedInDropdown" class="dropdown nav-icon" hidden>
                 <img class="user-nav-link" src="/assets/images/icons/default_user.png" alt="logo">
                 <div class="dropdown-content">
-                    <a id="profileLink" href="/">Min Profil</a>
-                    <a id="ordersLink" href="/">Mine Ordrer</a>
+                    <a id="profileLink" href="/profile">Min Profil</a>
+                    <a id="ordersLink" href="/orders">Mine Ordrer</a>
                     <div id="logOut">Log ud</div>
                 </div>
             </div>

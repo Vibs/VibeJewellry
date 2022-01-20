@@ -38,20 +38,20 @@ app.get("/", (req, res) => {
 app.get("/users/login", (req, res) => {
     res.send(customerPages.loginPage);
 });
-app.get("/users/:userId/profile", authenticateToken, (req, res) => {
+app.get("/profile", authenticateToken, (req, res) => {
     res.send(customerPages.profilePage);
+});
+app.get("/cart", authenticateToken, (req, res) => {
+    res.send(customerPages.cartPage);
 });
 app.get("/users/create", (req, res) => {
     res.send(customerPages.createUserPage);
 });
-app.get("/users/:userId/cart", authenticateToken, (req, res) => {
-    res.send(customerPages.cartPage);
-});
 app.get("/contact", (req, res) => {
     res.send(customerPages.contactPage);
 });
-app.get("/cart", (req, res) => {
-    res.send(customerPages.preLogInCartPage);
+app.get("/orders", (req, res) => {
+    res.send(customerPages.ordersPage);
 });
 app.get("/jewelry", (req, res) => {
     res.send(customerPages.allJewelryPage);

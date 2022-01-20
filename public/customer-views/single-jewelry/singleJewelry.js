@@ -7,7 +7,9 @@ const jewelryId = document.getElementById('current-jewelry-id').innerText;
 fetch(`/api/jewelry/${jewelryId}`)
 .then(response => response.json())
 .then(jewelryList => jewelryList.forEach(jewelry => createSingleJewelryView(jewelry)));
+
 /*
+TODO lav denne!!!
     console.log(response);
     if(response.status === 200) {
         //Ja, I know den er grim puhaaa
@@ -77,17 +79,18 @@ function checkIfLoggedIn() {
 function addToCart(){
 
     const cartItem = {
-        userId: getCookie('userId'),
+        //userId: getCookie('userId'), // TODO cookie indsæt intet her - gør det i backend i stedet
         jewelryId: jewelryId,
         amount: 1
     }
 
-    fetch(`/api/users/${getCookie('userId')}/cartItems`, {
+    fetch("/api/cartItems" , {//`/api/users/${getCookie('userId')}/cartItems`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json; charset=UTF-8', // denne linje siger at dataen som vi sender er en string 
         },
-        body: JSON.stringify(cartItem)
+        body: JSON.stringify(cartItem),
+        credentials: 'include'
     })
     .then(res => {
         if(res.ok){

@@ -25,8 +25,8 @@ const customerPages = {
         title: "Hjem",
         styling: [{ href: "/customer-views/frontpage/frontpage.css" }]
     }),
-    preLogInCartPage: createCustomerPage("cart/prelogin-cart.html", {
-        title: "Indkøbskurv",
+    ordersPage: createCustomerPage("orders/orders.html", {
+        title: "Ordrer",
     }),
     contactPage: createCustomerPage("contact/contact.html", {
         title: "Kontakt",
