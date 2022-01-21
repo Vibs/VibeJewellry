@@ -29,6 +29,8 @@ function logIn() {
             } else if(response.status == 403) {
                 alert("Forkert adgangskode.");
                 throw new Error(`${response.status} ${response.statusText}`);
+            } else {
+                alert("Der skete en fejl, da du forsøgte at logge ind");
             }
         })
         .catch((error) => console.error('Logging in: ', error));
