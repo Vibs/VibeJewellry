@@ -33,7 +33,7 @@ function sendContactMessage() {
         .then(response => {
             if(response.status === 200) {
                 //Ja, I know den er grim puhaaa
-                alert("Wow, det gik bare super godt med at sende den mail!");
+                alert("Mail er sendt");
 
                 // og så redirect til anden side
                 window.location.replace("/");
